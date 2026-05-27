@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="What Noctis does not collect: no traffic logs, no telemetry, no analytics. Server configs stay in browser storage. Full Chrome permission breakdown."
+    />
+    <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Privacy Policy — Noctis Browser Proxy Extension</title>
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem('noctis-locale')) return;
+          var l = (navigator.language || '').toLowerCase();
+          if (l.indexOf('ru') === 0) {
+            localStorage.setItem('noctis-locale', 'ru');
+            var p = location.pathname;
+            location.replace('/ru' + (p === '/' ? '/' : p) + location.search + location.hash);
+            return;
+          }
+          localStorage.setItem('noctis-locale', 'en');
+        } catch (e) {}
+      })();
+    </script>
+    <script>
+      (function () {
+        try {
+          document.documentElement.classList.add(
+            window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+          );
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/entries/privacy.tsx"></script>
+  </body>
+</html>

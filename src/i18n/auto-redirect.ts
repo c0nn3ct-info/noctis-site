@@ -1,0 +1,1 @@
+export const AUTO_REDIRECT_SCRIPT = `(function(){try{if(localStorage.getItem('noctis-locale'))return;var l=(navigator.language||'').toLowerCase();if(l.indexOf('ru')===0){localStorage.setItem('noctis-locale','ru');var p=location.pathname;location.replace('/ru'+(p==='/'?'/':p)+location.search+location.hash);return;}localStorage.setItem('noctis-locale','en');}catch(e){}})();`;

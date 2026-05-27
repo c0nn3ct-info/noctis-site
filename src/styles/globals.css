@@ -1,0 +1,426 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --shape-xs: 8px;
+    --shape-sm: 12px;
+    --shape-md: 16px;
+    --shape-lg: 28px;
+    --shape-xl: 36px;
+    --shape-pill: 999px;
+
+    --ease-emph: cubic-bezier(0.2, 0, 0, 1);
+    --ease-emph-decel: cubic-bezier(0.05, 0.7, 0.1, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-spring-standard: cubic-bezier(0.27, 1.06, 0.18, 1.0);
+    --dur-x-short: 80ms;
+    --dur-short: 120ms;
+    --dur-med: 250ms;
+    --dur-long: 450ms;
+    --dur-x-long: 600ms;
+
+    --shadow-1: 0 1px 2px 0 rgb(0 0 0 / 0.06), 0 1px 3px 1px rgb(0 0 0 / 0.03);
+    --shadow-2: 0 1px 2px 0 rgb(0 0 0 / 0.08), 0 2px 6px 2px rgb(0 0 0 / 0.04);
+    --shadow-3: 0 4px 8px 3px rgb(0 0 0 / 0.06), 0 1px 3px 0 rgb(0 0 0 / 0.10);
+    --shadow-4: 0 6px 10px 4px rgb(0 0 0 / 0.08), 0 2px 3px 0 rgb(0 0 0 / 0.10);
+
+    /* M3 tone-based surfaces — neutral palette tinted with source-color chroma.
+     * Default (no accent): cool slate tint at low chroma per M3 baseline. */
+    --background: 220 25% 99%;
+    --on-background: 220 15% 10%;
+    --surface: 220 25% 99%;
+    --on-surface: 220 15% 10%;
+    --surface-container-lowest: 0 0% 100%;
+    --surface-container-low: 220 32% 96%;
+    --surface-container: 220 30% 93%;
+    --surface-container-high: 220 28% 90%;
+    --surface-container-highest: 220 26% 86%;
+    --surface-variant: 220 22% 88%;
+    --on-surface-variant: 220 12% 35%;
+    --outline: 220 14% 55%;
+    --outline-variant: 220 18% 82%;
+    --primary: 0 0% 12%;
+    --on-primary: 0 0% 100%;
+    --primary-container: 0 0% 88%;
+    --on-primary-container: 0 0% 12%;
+    --secondary-container: 0 0% 92%;
+    --on-secondary-container: 0 0% 18%;
+    --tertiary: 175 55% 32%;
+    --on-tertiary: 0 0% 100%;
+    --tertiary-container: 175 50% 90%;
+    --on-tertiary-container: 175 70% 18%;
+    --success: 142 70% 38%;
+    --on-success: 0 0% 100%;
+    --success-container: 142 60% 90%;
+    --on-success-container: 142 70% 18%;
+    --warning: 38 92% 45%;
+    --warning-container: 38 90% 92%;
+    --on-warning-container: 38 80% 22%;
+    --error: 0 75% 50%;
+    --on-error: 0 0% 100%;
+    --error-container: 0 80% 94%;
+    --on-error-container: 0 70% 22%;
+
+    --foreground: var(--on-surface);
+    --card: var(--surface-container-low);
+    --card-foreground: var(--on-surface);
+    --popover: var(--surface-container);
+    --popover-foreground: var(--on-surface);
+    --primary-foreground: var(--on-primary);
+    --secondary: var(--secondary-container);
+    --secondary-foreground: var(--on-secondary-container);
+    --muted: var(--surface-container);
+    --muted-foreground: var(--on-surface-variant);
+    --accent: var(--surface-container-high);
+    --accent-foreground: var(--on-surface);
+    --destructive: var(--error);
+    --destructive-foreground: var(--on-error);
+    --border: var(--outline-variant);
+    --input: var(--outline-variant);
+    --ring: var(--primary);
+    --radius: 16px;
+  }
+
+  [data-theme='dark'],
+  :root.dark {
+    --background: 0 0% 7%;
+    --on-background: 0 0% 92%;
+    --surface: 0 0% 7%;
+    --on-surface: 0 0% 92%;
+    --surface-container-lowest: 0 0% 5%;
+    --surface-container-low: 0 0% 11%;
+    --surface-container: 0 0% 13%;
+    --surface-container-high: 0 0% 17%;
+    --surface-container-highest: 0 0% 21%;
+    --surface-variant: 0 0% 28%;
+    --on-surface-variant: 0 0% 78%;
+    --outline: 0 0% 55%;
+    --outline-variant: 0 0% 28%;
+    --primary: 0 0% 92%;
+    --on-primary: 0 0% 12%;
+    --primary-container: 0 0% 28%;
+    --on-primary-container: 0 0% 95%;
+    --secondary-container: 0 0% 22%;
+    --on-secondary-container: 0 0% 90%;
+    --tertiary: 175 50% 58%;
+    --on-tertiary: 0 0% 8%;
+    --tertiary-container: 175 35% 22%;
+    --on-tertiary-container: 175 70% 88%;
+    --success: 142 60% 55%;
+    --on-success: 0 0% 8%;
+    --success-container: 142 35% 22%;
+    --on-success-container: 142 70% 88%;
+    --warning: 38 90% 65%;
+    --warning-container: 38 50% 22%;
+    --on-warning-container: 38 90% 90%;
+    --error: 0 75% 65%;
+    --on-error: 0 0% 8%;
+    --error-container: 0 50% 22%;
+    --on-error-container: 0 90% 90%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      color-scheme: dark;
+      --background: 0 0% 7%;
+      --on-background: 0 0% 92%;
+      --surface: 0 0% 7%;
+      --on-surface: 0 0% 92%;
+      --surface-container-lowest: 0 0% 5%;
+      --surface-container-low: 0 0% 11%;
+      --surface-container: 0 0% 13%;
+      --surface-container-high: 0 0% 17%;
+      --surface-container-highest: 0 0% 21%;
+      --surface-variant: 0 0% 28%;
+      --on-surface-variant: 0 0% 78%;
+      --outline: 0 0% 55%;
+      --outline-variant: 0 0% 28%;
+      --primary: 0 0% 92%;
+      --on-primary: 0 0% 12%;
+      --primary-container: 0 0% 28%;
+      --on-primary-container: 0 0% 95%;
+      --secondary-container: 0 0% 22%;
+      --on-secondary-container: 0 0% 90%;
+      --tertiary: 175 50% 58%;
+      --on-tertiary: 0 0% 8%;
+      --tertiary-container: 175 35% 22%;
+      --on-tertiary-container: 175 70% 88%;
+      --success: 142 60% 55%;
+      --on-success: 0 0% 8%;
+      --success-container: 142 35% 22%;
+      --on-success-container: 142 70% 88%;
+      --warning: 38 90% 65%;
+      --warning-container: 38 50% 22%;
+      --on-warning-container: 38 90% 90%;
+      --error: 0 75% 65%;
+      --on-error: 0 0% 8%;
+      --error-container: 0 50% 22%;
+      --on-error-container: 0 90% 90%;
+    }
+  }
+}
+
+@layer base {
+  /* Accent overrides — applied when html[data-accent] is set.
+   * Full M3 source-color sweep: primary + secondary + tertiary palettes +
+   * surface-tint on elevated containers. Status colors (success/warning/error)
+   * and neutrals (background, surface, outline) stay theme-fixed. */
+  :root[data-accent='purple'] {
+    --primary: 270 55% 42%;
+    --on-primary: 0 0% 100%;
+    --primary-container: 270 60% 92%;
+    --on-primary-container: 270 70% 22%;
+    --secondary-container: 270 45% 82%;
+    --on-secondary-container: 270 55% 20%;
+    --tertiary: 330 50% 42%;
+    --on-tertiary: 0 0% 100%;
+    --tertiary-container: 330 55% 92%;
+    --on-tertiary-container: 330 65% 22%;
+    --surface-container-low:     270 35% 96%;
+    --surface-container:         270 38% 93%;
+    --surface-container-high:    270 40% 90%;
+    --surface-container-highest: 270 42% 86%;
+    --surface-variant:           270 28% 88%;
+    --outline-variant:           270 22% 82%;
+    --background:                270 25% 99%;
+    --surface:                   270 25% 99%;
+  }
+  :root[data-accent='purple'].dark,
+  :root[data-accent='purple'][data-theme='dark'] {
+    --background:                270  8%  7%;
+    --surface:                   270  8%  7%;
+    --primary: 270 70% 78%;
+    --on-primary: 270 70% 14%;
+    --primary-container: 270 45% 32%;
+    --on-primary-container: 270 70% 92%;
+    --secondary-container: 270 14% 24%;
+    --on-secondary-container: 270 30% 90%;
+    --tertiary: 330 65% 76%;
+    --on-tertiary: 330 65% 14%;
+    --tertiary-container: 330 40% 32%;
+    --on-tertiary-container: 330 60% 92%;
+    --surface-container-low:     270  6% 11%;
+    --surface-container:         270  8% 13%;
+    --surface-container-high:    270 12% 17%;
+    --surface-container-highest: 270 14% 21%;
+  }
+  :root[data-accent='cyan'] {
+    --primary: 190 75% 38%;
+    --on-primary: 0 0% 100%;
+    --primary-container: 190 70% 90%;
+    --on-primary-container: 190 80% 18%;
+    --secondary-container: 190 55% 80%;
+    --on-secondary-container: 190 65% 16%;
+    --tertiary: 250 45% 42%;
+    --on-tertiary: 0 0% 100%;
+    --tertiary-container: 250 55% 92%;
+    --on-tertiary-container: 250 60% 22%;
+    --surface-container-low:     190 45% 96%;
+    --surface-container:         190 48% 93%;
+    --surface-container-high:    190 48% 90%;
+    --surface-container-highest: 190 48% 86%;
+    --surface-variant:           190 32% 88%;
+    --outline-variant:           190 28% 80%;
+    --background:                190 35% 99%;
+    --surface:                   190 35% 99%;
+  }
+  :root[data-accent='cyan'].dark,
+  :root[data-accent='cyan'][data-theme='dark'] {
+    --background:                190 10%  7%;
+    --surface:                   190 10%  7%;
+    --primary: 190 70% 70%;
+    --on-primary: 190 60% 12%;
+    --primary-container: 190 50% 28%;
+    --on-primary-container: 190 70% 92%;
+    --secondary-container: 190 16% 24%;
+    --on-secondary-container: 190 30% 90%;
+    --tertiary: 250 60% 76%;
+    --on-tertiary: 250 60% 14%;
+    --tertiary-container: 250 38% 32%;
+    --on-tertiary-container: 250 60% 92%;
+    --surface-container-low:     190  8% 11%;
+    --surface-container:         190 10% 13%;
+    --surface-container-high:    190 14% 17%;
+    --surface-container-highest: 190 16% 21%;
+  }
+
+  /* System dark + accent: light accent has higher specificity than the base
+   * media-query dark, so re-apply dark accent tokens here. */
+  @media (prefers-color-scheme: dark) {
+    :root[data-accent='purple']:not([data-theme='light']) {
+      --background:                270  8%  7%;
+      --surface:                   270  8%  7%;
+      --primary: 270 70% 78%;
+      --on-primary: 270 70% 14%;
+      --primary-container: 270 45% 32%;
+      --on-primary-container: 270 70% 92%;
+      --secondary-container: 270 14% 24%;
+      --on-secondary-container: 270 30% 90%;
+      --tertiary: 330 65% 76%;
+      --on-tertiary: 330 65% 14%;
+      --tertiary-container: 330 40% 32%;
+      --on-tertiary-container: 330 60% 92%;
+      --surface-container-low:     270  6% 11%;
+      --surface-container:         270  8% 13%;
+      --surface-container-high:    270 12% 17%;
+      --surface-container-highest: 270 14% 21%;
+      --surface-variant: 0 0% 28%;
+      --outline-variant: 0 0% 28%;
+    }
+    :root[data-accent='cyan']:not([data-theme='light']) {
+      --background:                190 10%  7%;
+      --surface:                   190 10%  7%;
+      --primary: 190 70% 70%;
+      --on-primary: 190 60% 12%;
+      --primary-container: 190 50% 28%;
+      --on-primary-container: 190 70% 92%;
+      --secondary-container: 190 16% 24%;
+      --on-secondary-container: 190 30% 90%;
+      --tertiary: 250 60% 76%;
+      --on-tertiary: 250 60% 14%;
+      --tertiary-container: 250 38% 32%;
+      --on-tertiary-container: 250 60% 92%;
+      --surface-container-low:     190  8% 11%;
+      --surface-container:         190 10% 13%;
+      --surface-container-high:    190 14% 17%;
+      --surface-container-highest: 190 16% 21%;
+      --surface-variant: 0 0% 28%;
+      --outline-variant: 0 0% 28%;
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html,
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer components {
+  .m3-state-layer {
+    position: relative;
+    isolation: isolate;
+  }
+  .m3-state-layer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: hsl(var(--on-surface));
+    opacity: 0;
+    transition: opacity var(--dur-short) var(--ease-emph);
+    border-radius: inherit;
+  }
+  .m3-state-layer:hover::after {
+    opacity: 0.08;
+  }
+  .m3-state-layer:focus-visible::after {
+    opacity: 0.10;
+  }
+  .m3-state-layer:active::after {
+    opacity: 0.12;
+  }
+
+  /* Direction accent — Rules pages set --dir-* based on direction (proxy/direct/block).
+   * Children read hsl(var(--dir)) and hsl(var(--dir-container)). */
+  .dir-proxy {
+    --dir: var(--primary);
+    --dir-on: var(--on-primary);
+    --dir-container: var(--primary-container);
+    --dir-on-container: var(--on-primary-container);
+  }
+  .dir-direct {
+    --dir: var(--tertiary);
+    --dir-on: var(--on-tertiary);
+    --dir-container: var(--tertiary-container);
+    --dir-on-container: var(--on-tertiary-container);
+  }
+  .dir-block {
+    --dir: var(--error);
+    --dir-on: var(--on-error);
+    --dir-container: var(--error-container);
+    --dir-on-container: var(--on-error-container);
+  }
+
+  /* Animate border-radius for M3 Expressive shape morph. */
+  .shape-morph {
+    transition: border-radius var(--dur-med) var(--ease-spring-standard);
+  }
+
+  .list-section-header {
+    @apply px-1 pb-2 pt-4 text-label-large text-on-surface-variant;
+  }
+
+  /* M3 Expressive squircle (superellipse, n≈4). clip-path clips box-shadow;
+   * draw shadow on a wrapper if elevation is needed. */
+  .shape-squircle-sm {
+    clip-path: path('M 18,0 C 28.5,0 36,7.5 36,18 C 36,28.5 28.5,36 18,36 C 7.5,36 0,28.5 0,18 C 0,7.5 7.5,0 18,0 Z');
+  }
+  .shape-squircle-md {
+    clip-path: path('M 22,0 C 35,0 44,9 44,22 C 44,35 35,44 22,44 C 9,44 0,35 0,22 C 0,9 9,0 22,0 Z');
+  }
+  .shape-squircle-lg {
+    clip-path: path('M 28,0 C 44.5,0 56,11.5 56,28 C 56,44.5 44.5,56 28,56 C 11.5,56 0,44.5 0,28 C 0,11.5 11.5,0 28,0 Z');
+  }
+  .shape-squircle-power {
+    clip-path: path('M 20,0 C 31.8,0 40,8.2 40,20 C 40,31.8 31.8,40 20,40 C 8.2,40 0,31.8 0,20 C 0,8.2 8.2,0 20,0 Z');
+  }
+}
+
+@property --shape-r {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 12px;
+}
+
+@keyframes m3-shape-morph-to-pill {
+  from { border-radius: var(--shape-md); }
+  to   { border-radius: var(--shape-pill); }
+}
+@keyframes m3-shape-morph-to-rounded {
+  from { border-radius: var(--shape-pill); }
+  to   { border-radius: var(--shape-md); }
+}
+
+@keyframes m3-pulse-ring {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+@keyframes m3-status-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* M3 Expressive loading indicator — three segments chasing.
+ * Single bar morphs across the track. Used inline inside busy buttons. */
+@keyframes m3-loading-slide {
+  0% { transform: translateX(0%); width: 30%; }
+  40% { transform: translateX(70%); width: 50%; }
+  60% { transform: translateX(110%); width: 30%; }
+  100% { transform: translateX(170%); width: 30%; }
+}
