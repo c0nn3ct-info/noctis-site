@@ -105,6 +105,8 @@ $env:NOCTIS_EXT_ID='nmhobajopepdpihahepaddpdifdcenpn'; iwr -useb https://noctis.
 
 The installer downloads noctis-host and sing-box into your user data directory and writes a native-messaging manifest for every supported browser.
 
+Running it from more than one browser or profile is fine: each browser's extension has its own id, and the installer **accumulates** ids in the manifest rather than replacing them. So if you use Noctis in several browsers or profiles at once, just run the Helper Setup command shown in each — every one stays connected, and each can run its own server simultaneously.
+
 The first time the extension talks to the helper, your browser may show a one-time native-messaging prompt — approve it.
 
 ### First run

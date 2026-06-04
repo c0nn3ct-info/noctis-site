@@ -8,6 +8,10 @@ if [[ -z "$EXT_ID" ]]; then
   echo "Usage: bash macos.sh <extension-id>" >&2
   exit 1
 fi
+if [[ ! "$EXT_ID" =~ ^[a-p]{32}$ ]]; then
+  echo "Invalid extension id: $EXT_ID (expected 32 chars a-p)" >&2
+  exit 1
+fi
 
 REPO="c0nn3ct-xyz/noctis-host"
 
@@ -59,19 +63,31 @@ TARGETS=(
   "$HOME/Library/Application Support/Yandex/YandexBrowser/NativeMessagingHosts"
 )
 
+# Merge ids into allowed_origins instead of overwriting: each browser/profile has
+# its own extension id, so running this from a second browser must not evict the
+# first. Union of (ids already in the file) + the passed EXT_ID, deduped.
+build_origins() {                       # $1 = manifest path
+  { [[ -f "$1" ]] && grep -oE 'chrome-extension://[a-p]{32}/' "$1"
+    echo "chrome-extension://$EXT_ID/"; } | sort -u \
+  | awk 'NR>1{printf ",\n    "} {printf "\"%s\"", $0}'
+}
+
 written=0
 for dir in "${TARGETS[@]}"; do
   parent="$(dirname "$dir")"
   [[ -d "$parent" ]] || continue
   mkdir -p "$dir"
   manifest="$dir/$NM_NAME.json"
+  origins="$(build_origins "$manifest")"
   cat > "$manifest" <<JSON
 {
   "name": "$NM_NAME",
   "description": "Noctis native helper",
   "path": "$HOST_BIN",
   "type": "stdio",
-  "allowed_origins": ["chrome-extension://$EXT_ID/"]
+  "allowed_origins": [
+    $origins
+  ]
 }
 JSON
   echo "  wrote $manifest"
@@ -87,3 +103,4 @@ echo
 echo "Done. Installed for $written browser(s)."
 echo "Helper:  $HOST_BIN"
 echo "Reload Noctis on chrome://extensions to pick up the helper."
+echo "Using more browsers/profiles? Run the command shown in each — ids accumulate."

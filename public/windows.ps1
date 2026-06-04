@@ -15,6 +15,10 @@ if (-not $ExtensionId) {
   Write-Error 'Pass the extension ID via $env:NOCTIS_EXT_ID or -ExtensionId.'
   exit 1
 }
+if ($ExtensionId -notmatch '^[a-p]{32}$') {
+  Write-Error "Invalid extension id: $ExtensionId (expected 32 chars a-p)"
+  exit 1
+}
 
 $repo = 'c0nn3ct-xyz/noctis-host'
 
@@ -53,15 +57,37 @@ try {
   Remove-Item -Recurse -Force $tmp
 }
 
-$manifest = [pscustomobject]@{
-  name             = 'com.noctis.host'
-  description      = 'Noctis native helper'
-  path             = $hostBin
-  type             = 'stdio'
-  allowed_origins  = @("chrome-extension://$ExtensionId/")
-} | ConvertTo-Json -Depth 4
-
 $manifestPath = Join-Path $installDir 'com.noctis.host.json'
+
+# Merge ids into allowed_origins instead of overwriting: each browser/profile has
+# its own extension id, so re-running from another browser must not evict the
+# first. Union of (ids already in the file) + the passed id, deduped.
+$origins = New-Object System.Collections.Generic.List[string]
+if (Test-Path $manifestPath) {
+  try {
+    $prev = Get-Content -Raw -Path $manifestPath | ConvertFrom-Json
+    foreach ($o in @($prev.allowed_origins)) { if ($o) { $origins.Add([string]$o) } }
+  } catch { }
+}
+$origins.Add("chrome-extension://$ExtensionId/")
+$uniqueOrigins = @($origins | Sort-Object -Unique)
+
+# Hand-build the JSON so a single-element array still serializes as an array
+# (ConvertTo-Json unwraps one-item arrays into a bare scalar). Each value goes
+# through ConvertTo-Json individually for correct quoting/escaping.
+$originsJson = ($uniqueOrigins | ForEach-Object { $_ | ConvertTo-Json }) -join ",`n    "
+$pathJson = $hostBin | ConvertTo-Json
+$manifest = @"
+{
+  "name": "com.noctis.host",
+  "description": "Noctis native helper",
+  "path": $pathJson,
+  "type": "stdio",
+  "allowed_origins": [
+    $originsJson
+  ]
+}
+"@
 [System.IO.File]::WriteAllText($manifestPath, $manifest)
 
 $registryRoots = @(
@@ -89,3 +115,4 @@ Write-Host "Done. Registered for $written browser(s)."
 Write-Host "Helper:    $hostBin"
 Write-Host "Manifest:  $manifestPath"
 Write-Host 'Reload Noctis on chrome://extensions to pick up the helper.'
+Write-Host 'Using more browsers/profiles? Re-run with each browser id - ids accumulate.'
