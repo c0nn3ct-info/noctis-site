@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Lo que Noctis no recopila: sin registros de tráfico, sin telemetría, sin analíticas. Las configuraciones de servidor se quedan en el almacenamiento del navegador. Desglose completo de los permisos de Chrome y su justificación."
+    />
+    <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Política de privacidad — Extensión proxy de navegador Noctis</title>
+    <script>
+      (function () {
+        try {
+          document.documentElement.classList.add(
+            window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+          );
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="../../../src/entries/privacy.tsx"></script>
+  </body>
+</html>

@@ -1,4 +1,4 @@
-[English](./README.md) · [Русский](./README.ru.md)
+[English](./README.md) · [Русский](./README.ru.md) · [Español](./README.es.md) · [中文](./README.zh-CN.md) · [فارسی](./README.fa.md) · [العربية](./README.ar.md)
 
 <p align="center">
   <picture>
@@ -12,7 +12,7 @@
 
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&color=4285F4" alt="Chrome Web Store"></a>
-  <a href="./docs/ru/LICENSE.md"><img src="https://img.shields.io/badge/license-EULA-blue" alt="Лицензия: EULA"></a>
+  <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-EULA-blue" alt="Лицензия: EULA"></a>
   <a href="https://github.com/c0nn3ct-xyz/noctis-host"><img src="https://img.shields.io/badge/helper-MIT-green" alt="Helper: MIT"></a>
   <a href="https://noctis.c0nn3ct.xyz"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.xyz-7c3aed" alt="Сайт"></a>
 </p>
@@ -137,7 +137,7 @@ VPN тоннелирует все приложения системы через
 VLESS, VMess, Trojan, Shadowsocks, Hysteria2, TUIC, WireGuard, AnyTLS и ShadowTLS — всё, что sing-box умеет как исходящее. Share-ссылки V2Ray и Xray работают как есть.
 
 **Безопасно ли использовать прокси-расширение для Chrome?**
-Безопаснее большинства. Noctis ничего не отправляет разработчику — никакой аналитики, телеметрии, удалённой конфигурации. Конфиги серверов хранятся в storage браузера. Нативный хелпер работает без прав администратора. Полный список разрешений и обоснование — в [политике приватности](./docs/ru/PRIVACY.md).
+Безопаснее большинства. Noctis ничего не отправляет разработчику — никакой аналитики, телеметрии, удалённой конфигурации. Конфиги серверов хранятся в storage браузера. Нативный хелпер работает без прав администратора. Полный список разрешений и обоснование — в [политике приватности](./PRIVACY.md).
 
 **Работает ли Noctis на Windows, macOS и Linux?**
 Да — в Chromium-браузерах на Windows, macOS и Linux (Chrome, Edge, Brave, Arc, Vivaldi, Opera, Yandex Browser). Установщик хелпера — одна команда для каждой платформы.
@@ -161,6 +161,6 @@ Noctis — это всего лишь прокси-клиент, который 
 
 ## ⚖️ Юридическая информация
 
-- Лицензия — проприетарная EULA: см. [LICENSE](./docs/ru/LICENSE.md) или <https://noctis.c0nn3ct.xyz/ru/license/>.
-- Приватность — см. [PRIVACY](./docs/ru/PRIVACY.md) или <https://noctis.c0nn3ct.xyz/ru/privacy/>.
+- Лицензия — проприетарная EULA: см. [LICENSE](./LICENSE.md) или <https://noctis.c0nn3ct.xyz/ru/license/>.
+- Приватность — см. [PRIVACY](./PRIVACY.md) или <https://noctis.c0nn3ct.xyz/ru/privacy/>.
 - Нативный хелпер — лицензия MIT: см. <https://github.com/c0nn3ct-xyz/noctis-host>.

@@ -300,7 +300,8 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-      sans-serif;
+      'Noto Sans Arabic', 'Geeza Pro', 'PingFang SC', 'Microsoft YaHei',
+      'Noto Sans CJK SC', sans-serif;
     font-feature-settings: 'cv11', 'ss01';
     -webkit-font-smoothing: antialiased;
   }

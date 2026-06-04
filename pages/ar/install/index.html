@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="دليل تثبيت خطوة بخطوة لإضافة Noctis لوكيل VLESS في المتصفّح: التثبيت من Chrome Web Store، وإعداد مساعد sing-box الأصلي على Windows وmacOS وLinux. سكربتات تثبيت من سطر واحد."
+    />
+    <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://chrome.google.com" />
+    <link rel="preconnect" href="https://github.com" />
+    <title>تثبيت Noctis — إعداد إضافة VLESS لـ Chrome (Windows وmacOS وLinux)</title>
+    <script>
+      (function () {
+        try {
+          document.documentElement.classList.add(
+            window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+          );
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="../../../src/entries/install.tsx"></script>
+  </body>
+</html>

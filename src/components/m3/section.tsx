@@ -45,7 +45,7 @@ export function SectionLink({ title, icon: Icon, supporting, onClick, className 
       type="button"
       onClick={onClick}
       className={cn(
-        'm3-state-layer flex w-full items-center gap-3 overflow-hidden rounded-xl bg-surface-container-low px-4 py-4 text-left transition-colors duration-short ease-emph',
+        'm3-state-layer flex w-full items-center gap-3 overflow-hidden rounded-xl bg-surface-container-low px-4 py-4 text-start transition-colors duration-short ease-emph',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary',
         className,
       )}
@@ -59,7 +59,7 @@ export function SectionLink({ title, icon: Icon, supporting, onClick, className 
           <span className="truncate text-label-small text-on-surface-variant">{supporting}</span>
         )}
       </span>
-      <ChevronRight className="h-5 w-5 shrink-0 text-on-surface-variant" />
+      <ChevronRight className="h-5 w-5 shrink-0 text-on-surface-variant rtl:-scale-x-100" />
     </button>
   );
 }

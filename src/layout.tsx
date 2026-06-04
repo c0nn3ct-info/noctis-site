@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Download, FileText, Github, Home, ShieldCheck } from 'lucide-react';
 import { NoctisLogo } from '@/components/noctis-logo';
-import { getLocale, t } from './i18n';
+import { localePath, t } from './i18n';
 import { LanguageSwitcher } from './components/language-switcher';
 import { GithubLink } from './components/github-link';
 
@@ -13,8 +13,7 @@ interface LayoutProps {
 }
 
 export function Layout({ current: _current, children }: LayoutProps) {
-  const locale = getLocale();
-  const homeHref = locale === 'en' ? '/' : '/ru/';
+  const homeHref = localePath('/');
   return (
     <div className="flex min-h-screen flex-col bg-background text-on-surface">
       <header className="sticky top-0 z-20 flex h-16 items-center gap-2 border-b border-outline-variant bg-surface-container-low/95 px-4 backdrop-blur-md sm:px-6">
@@ -26,7 +25,7 @@ export function Layout({ current: _current, children }: LayoutProps) {
           <NoctisLogo className="h-6 w-6 text-primary" />
           <span className="text-title-medium tracking-tight">Noctis</span>
         </a>
-        <div className="ml-auto flex items-center gap-1">
+        <div className="ms-auto flex items-center gap-1">
           <GithubLink />
           <LanguageSwitcher />
         </div>
@@ -53,19 +52,19 @@ export function Layout({ current: _current, children }: LayoutProps) {
                 </a>
               </li>
               <li>
-                <a className="inline-flex items-center gap-2 underline-offset-4 hover:underline" href={locale === 'en' ? '/install/' : '/ru/install/'}>
+                <a className="inline-flex items-center gap-2 underline-offset-4 hover:underline" href={localePath('/install/')}>
                   <Download className="h-3.5 w-3.5" />
                   {t('nav.install')}
                 </a>
               </li>
               <li>
-                <a className="inline-flex items-center gap-2 underline-offset-4 hover:underline" href={locale === 'en' ? '/privacy/' : '/ru/privacy/'}>
+                <a className="inline-flex items-center gap-2 underline-offset-4 hover:underline" href={localePath('/privacy/')}>
                   <ShieldCheck className="h-3.5 w-3.5" />
                   {t('nav.privacy')}
                 </a>
               </li>
               <li>
-                <a className="inline-flex items-center gap-2 underline-offset-4 hover:underline" href={locale === 'en' ? '/license/' : '/ru/license/'}>
+                <a className="inline-flex items-center gap-2 underline-offset-4 hover:underline" href={localePath('/license/')}>
                   <FileText className="h-3.5 w-3.5" />
                   {t('nav.license')}
                 </a>

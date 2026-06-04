@@ -38,7 +38,7 @@ function CodeBlock({ children }: { children: string }) {
 
   return (
     <div className="group relative rounded-md bg-surface-container-highest">
-      <pre className="overflow-x-auto px-3 py-3 pr-12 text-body-small font-mono text-on-surface">
+      <pre className="overflow-x-auto px-3 py-3 pe-12 text-body-small font-mono text-on-surface">
         <code>{children}</code>
       </pre>
       <IconButton
@@ -48,7 +48,7 @@ function CodeBlock({ children }: { children: string }) {
         onClick={() => void copy()}
         aria-label={copied ? 'Copied' : 'Copy command'}
         title={copied ? 'Copied' : 'Copy'}
-        className="absolute right-1.5 top-1.5 text-on-surface-variant"
+        className="absolute end-1.5 top-1.5 text-on-surface-variant"
       >
         {copied ? <Check /> : <Copy />}
       </IconButton>
@@ -176,11 +176,11 @@ export function InstallPage() {
             </span>
             <CardTitle className="mt-2">{t('install.uninstalling.title')}</CardTitle>
           </CardHeader>
-          <ol className="mt-3 space-y-2 pl-5 text-body-medium text-on-surface-variant list-decimal">
+          <ol className="mt-3 space-y-2 ps-5 text-body-medium text-on-surface-variant list-decimal">
             <li>{t('install.uninstalling.step1')}</li>
             <li>
               {t('install.uninstalling.step2')}
-              <ul className="mt-1 space-y-0.5 pl-4 list-disc">
+              <ul className="mt-1 space-y-0.5 ps-4 list-disc">
                 <li>
                   macOS / Linux:{' '}
                   <code className="rounded bg-surface-container-highest px-1 py-0.5 font-mono text-body-small">

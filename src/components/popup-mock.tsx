@@ -41,7 +41,7 @@ const SERVERS: ReadonlyArray<MockServer> = [
 
 export function PopupMock() {
   return (
-    <div className="pointer-events-auto flex min-h-[560px] w-[380px] flex-col rounded-lg border border-outline-variant bg-background text-on-surface shadow-e3">
+    <div dir="ltr" className="pointer-events-auto flex min-h-[560px] w-[380px] flex-col rounded-lg border border-outline-variant bg-background text-on-surface shadow-e3">
       <section className="shrink-0 px-4 pb-4 pt-4">
         <Card variant="elevated" padding="md" className="overflow-hidden">
           <div className="flex items-center gap-4">

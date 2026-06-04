@@ -59,7 +59,7 @@ export function PrivacyPage() {
         <Section header={t('privacy.network.h2')} icon={Network}>
           <div className="space-y-3 px-2 py-2 text-body-large text-on-surface-variant">
             <p>{t('privacy.network.intro')}</p>
-            <ol className="space-y-1.5 pl-5 list-decimal">
+            <ol className="space-y-1.5 ps-5 list-decimal">
               <li>
                 <b className="text-on-surface">{t('privacy.network.proxied.b')}</b>
                 {t('privacy.network.proxied.body')}
@@ -91,7 +91,7 @@ export function PrivacyPage() {
         <Section header={t('privacy.permissions.h2')} icon={KeyRound} count={PERMISSIONS.length}>
           <div className="px-2 py-2">
             <div className="overflow-hidden rounded-md border border-outline-variant">
-              <table className="w-full table-fixed text-left text-body-medium">
+              <table className="w-full table-fixed text-start text-body-medium">
                 <thead className="bg-surface-container-high text-on-surface">
                   <tr>
                     <th className="w-28 px-3 py-2 text-label-large font-medium sm:w-40">

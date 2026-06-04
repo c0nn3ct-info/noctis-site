@@ -15,6 +15,9 @@ const require = createRequire(import.meta.url);
 const pkg = require(resolve(root, 'package.json'));
 
 const ORIGIN = 'https://noctis.c0nn3ct.xyz';
+const WEBSTORE_URL =
+  'https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn';
+const GITHUB_ORG = 'https://github.com/c0nn3ct-xyz';
 
 const PAGE_PATH = {
   home: '/',
@@ -25,21 +28,45 @@ const PAGE_PATH = {
 
 const PRIORITY = { home: '1.0', install: '0.8', privacy: '0.5', license: '0.5' };
 
-const EN = JSON.parse(await readFile(resolve(root, 'src/i18n/en.json'), 'utf8'));
-const RU = JSON.parse(await readFile(resolve(root, 'src/i18n/ru.json'), 'utf8'));
-const DICT = { en: EN, ru: RU };
+const LOCALES = ['en', 'ru', 'es', 'zh-CN', 'fa', 'ar'];
+
+const OG_LOCALE = {
+  en: 'en_US',
+  ru: 'ru_RU',
+  es: 'es_ES',
+  'zh-CN': 'zh_CN',
+  fa: 'fa_IR',
+  ar: 'ar_AR',
+};
+
+const OG_IMAGE_ALT = {
+  en: 'Noctis — VLESS browser extension',
+  ru: 'Noctis — браузерное расширение VLESS',
+  es: 'Noctis — extensión de navegador VLESS',
+  'zh-CN': 'Noctis — VLESS 浏览器扩展',
+  fa: 'Noctis — افزونه مرورگر VLESS',
+  ar: 'Noctis — إضافة متصفح VLESS',
+};
+
+const DICT = Object.fromEntries(
+  await Promise.all(
+    LOCALES.map(async (l) => [
+      l,
+      JSON.parse(await readFile(resolve(root, `src/i18n/${l}.json`), 'utf8')),
+    ]),
+  ),
+);
 
 function pathFor(page, locale) {
   const base = PAGE_PATH[page];
   if (locale === 'en') return base;
-  if (base === '/') return '/ru/';
-  return `/ru${base}`;
+  if (base === '/') return `/${locale}/`;
+  return `/${locale}${base}`;
 }
 
 function diskPath(page, locale) {
   const p = pathFor(page, locale);
   if (p === '/') return resolve(distDir, 'index.html');
-  if (p === '/ru/') return resolve(distDir, 'ru/index.html');
   return resolve(distDir, p.replace(/^\//, '').replace(/\/$/, ''), 'index.html');
 }
 
@@ -52,14 +79,13 @@ function getMeta(page, locale) {
     description: dict[`${page}.description`] ?? '',
     canonical: url,
     hreflang: [
-      { lang: 'en', href: `${ORIGIN}${pathFor(page, 'en')}` },
-      { lang: 'ru', href: `${ORIGIN}${pathFor(page, 'ru')}` },
+      ...LOCALES.map((l) => ({ lang: l, href: `${ORIGIN}${pathFor(page, l)}` })),
       { lang: 'x-default', href: `${ORIGIN}${pathFor(page, 'en')}` },
     ],
     og: {
       type: 'website',
-      locale: locale === 'en' ? 'en_US' : 'ru_RU',
-      localeAlternate: locale === 'en' ? 'ru_RU' : 'en_US',
+      locale: OG_LOCALE[locale],
+      localeAlternate: LOCALES.filter((l) => l !== locale).map((l) => OG_LOCALE[l]),
       image: `${ORIGIN}/og-preview.jpg`,
       url,
       siteName: 'Noctis',
@@ -80,7 +106,11 @@ function jsonLdBlocks(page, locale, version) {
     name: 'c0nn3ct.xyz',
     url: 'https://c0nn3ct.xyz',
     logo: `${ORIGIN}/favicon.svg`,
-    sameAs: ['https://github.com/c0nn3ct-xyz/noctis-host'],
+    sameAs: [
+      GITHUB_ORG,
+      'https://github.com/c0nn3ct-xyz/noctis-host',
+      'https://github.com/c0nn3ct-xyz/noctis-site',
+    ],
   };
   const blocks = [organization];
 
@@ -94,7 +124,10 @@ function jsonLdBlocks(page, locale, version) {
       operatingSystem: 'Windows, macOS, Linux',
       description: dict['home.description'],
       url,
-      inLanguage: ['en', 'ru'],
+      downloadUrl: WEBSTORE_URL,
+      installUrl: WEBSTORE_URL,
+      sameAs: [WEBSTORE_URL],
+      inLanguage: [...LOCALES],
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       publisher: organization,
       softwareVersion: version,
@@ -168,10 +201,7 @@ function escapeHtmlText(s) {
 function buildHeadInjection(page, locale, version) {
   const meta = getMeta(page, locale);
   const blocks = jsonLdBlocks(page, locale, version);
-  const ogImageAlt =
-    locale === 'ru'
-      ? 'Noctis — браузерное расширение VLESS'
-      : 'Noctis — VLESS browser extension';
+  const ogImageAlt = OG_IMAGE_ALT[locale] ?? OG_IMAGE_ALT.en;
   const lines = [];
   lines.push(`<link rel="canonical" href="${escapeHtmlAttr(meta.canonical)}" />`);
   for (const h of meta.hreflang) {
@@ -182,9 +212,9 @@ function buildHeadInjection(page, locale, version) {
   lines.push(`<meta property="og:type" content="${meta.og.type}" />`);
   lines.push(`<meta property="og:site_name" content="${escapeHtmlAttr(meta.og.siteName)}" />`);
   lines.push(`<meta property="og:locale" content="${meta.og.locale}" />`);
-  lines.push(
-    `<meta property="og:locale:alternate" content="${meta.og.localeAlternate}" />`,
-  );
+  for (const alt of meta.og.localeAlternate) {
+    lines.push(`<meta property="og:locale:alternate" content="${alt}" />`);
+  }
   lines.push(`<meta property="og:url" content="${escapeHtmlAttr(meta.og.url)}" />`);
   lines.push(`<meta property="og:title" content="${escapeHtmlAttr(meta.title)}" />`);
   lines.push(
@@ -229,7 +259,7 @@ function startServer(port) {
 
 function buildSitemap(lastmod) {
   const pages = ['home', 'install', 'privacy', 'license'];
-  const locales = ['en', 'ru'];
+  const locales = LOCALES;
   const urls = [];
   for (const page of pages) {
     for (const locale of locales) {
@@ -295,7 +325,7 @@ async function main() {
 
   try {
     const pages = ['home', 'install', 'privacy', 'license'];
-    const locales = ['en', 'ru'];
+    const locales = LOCALES;
 
     for (const page of pages) {
       for (const locale of locales) {

@@ -1,4 +1,4 @@
-[English](./README.md) · [Русский](./README.ru.md)
+[English](./README.md) · [Русский](./README.ru.md) · [Español](./README.es.md) · [中文](./README.zh-CN.md) · [فارسی](./README.fa.md) · [العربية](./README.ar.md)
 
 <p align="center">
   <picture>
@@ -12,7 +12,7 @@
 
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&color=4285F4" alt="Chrome Web Store"></a>
-  <a href="./docs/en/LICENSE.md"><img src="https://img.shields.io/badge/license-EULA-blue" alt="License: EULA"></a>
+  <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-EULA-blue" alt="License: EULA"></a>
   <a href="https://github.com/c0nn3ct-xyz/noctis-host"><img src="https://img.shields.io/badge/helper-MIT-green" alt="Helper: MIT"></a>
   <a href="https://noctis.c0nn3ct.xyz"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.xyz-7c3aed" alt="Live site"></a>
 </p>
@@ -137,7 +137,7 @@ Yes. VLESS Reality is a standard sing-box outbound, and Noctis passes Reality pa
 VLESS, VMess, Trojan, Shadowsocks, Hysteria2, TUIC, WireGuard, AnyTLS and ShadowTLS — anything sing-box supports as an outbound. V2Ray and Xray share links work as-is.
 
 **Is a Chrome proxy extension safe to use?**
-Safer than most. Noctis sends nothing to its developer — no analytics, no telemetry, no remote config. Server configs stay in browser storage. The native helper runs without admin rights. The full permission list and rationale is in the [privacy policy](./docs/en/PRIVACY.md).
+Safer than most. Noctis sends nothing to its developer — no analytics, no telemetry, no remote config. Server configs stay in browser storage. The native helper runs without admin rights. The full permission list and rationale is in the [privacy policy](./PRIVACY.md).
 
 **Does Noctis work on Windows, macOS and Linux?**
 Yes — Chromium-based browsers on Windows, macOS and Linux (Chrome, Edge, Brave, Arc, Vivaldi, Opera, Yandex Browser). The native helper has one-line install scripts for each platform.
@@ -161,6 +161,6 @@ Free. The extension is free in the Chrome Web Store and the native helper is ope
 
 ## ⚖️ Legal
 
-- License — proprietary EULA: see [LICENSE](./docs/en/LICENSE.md) or <https://noctis.c0nn3ct.xyz/license/>.
-- Privacy — see [PRIVACY](./docs/en/PRIVACY.md) or <https://noctis.c0nn3ct.xyz/privacy/>.
+- License — proprietary EULA: see [LICENSE](./LICENSE.md) or <https://noctis.c0nn3ct.xyz/license/>.
+- Privacy — see [PRIVACY](./PRIVACY.md) or <https://noctis.c0nn3ct.xyz/privacy/>.
 - Native helper — MIT-licensed: see <https://github.com/c0nn3ct-xyz/noctis-host>.

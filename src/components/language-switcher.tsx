@@ -2,21 +2,19 @@ import { useEffect, useRef, useState } from 'react';
 import { Languages } from 'lucide-react';
 import { IconButton } from '@/components/ui/icon-button';
 import { cn } from '@/lib/utils';
-import { getLocale, t, type Locale } from '../i18n';
+import { getLocale, stripLocale, t, withLocale, type Locale } from '../i18n';
 
-function pairPath(currentPath: string, currentLocale: Locale, target: Locale): string {
-  if (target === currentLocale) return currentPath;
-  if (target === 'en') {
-    if (currentPath === '/ru/' || currentPath === '/ru') return '/';
-    return currentPath.replace(/^\/ru/, '') || '/';
-  }
-  if (currentPath === '/') return '/ru/';
-  return `/ru${currentPath}`;
+function pairPath(currentPath: string, target: Locale): string {
+  return withLocale(stripLocale(currentPath), target);
 }
 
 const LOCALES: ReadonlyArray<{ code: Locale; label: string }> = [
   { code: 'en', label: 'English' },
   { code: 'ru', label: 'Русский' },
+  { code: 'es', label: 'Español' },
+  { code: 'zh-CN', label: '中文' },
+  { code: 'fa', label: 'فارسی' },
+  { code: 'ar', label: 'العربية' },
 ];
 
 interface LanguageSwitcherProps {
@@ -46,10 +44,8 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
 
   const hrefFor = (target: Locale) =>
     typeof window === 'undefined'
-      ? target === 'en'
-        ? '/'
-        : '/ru/'
-      : pairPath(window.location.pathname, locale, target);
+      ? withLocale('/', target)
+      : pairPath(window.location.pathname, target);
 
   const onSelect = (target: Locale) => {
     try {
@@ -76,7 +72,7 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
       {open && (
         <ul
           role="menu"
-          className="absolute right-0 top-full z-30 mt-1 min-w-[10rem] overflow-hidden rounded-md border border-outline-variant bg-surface-container shadow-e2"
+          className="absolute end-0 top-full z-30 mt-1 min-w-[10rem] overflow-hidden rounded-md border border-outline-variant bg-surface-container shadow-e2"
         >
           {LOCALES.map((l) => {
             const active = l.code === locale;

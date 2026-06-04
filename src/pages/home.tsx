@@ -7,7 +7,7 @@ import { BrowserMock } from '../components/browser-mock';
 import { FaqSection } from '../components/faq-section';
 import { PopupMock } from '../components/popup-mock';
 import { WEBSTORE_URL } from '../constants';
-import { getLocale, t } from '../i18n';
+import { localePath, t } from '../i18n';
 import { Layout } from '../layout';
 
 const PROTOCOLS = [
@@ -35,8 +35,7 @@ const FEATURE_KEYS = [
 ] as const;
 
 export function HomePage() {
-  const locale = getLocale();
-  const installHref = locale === 'en' ? '/install/' : '/ru/install/';
+  const installHref = localePath('/install/');
   return (
     <Layout current="home">
       <section className="grid items-start gap-8 pb-10 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
@@ -51,7 +50,7 @@ export function HomePage() {
             <Button asChild variant="filled" size="s">
               <a href={installHref}>
                 {t('home.hero.cta_install')}
-                <ArrowRight />
+                <ArrowRight className="rtl:-scale-x-100" />
               </a>
             </Button>
             <Button asChild variant="outlined" size="s">
@@ -141,7 +140,7 @@ export function HomePage() {
         <Button asChild variant="filled-tonal" size="s">
           <a href={installHref}>
             {t('home.start.cta')}
-            <ArrowRight />
+            <ArrowRight className="rtl:-scale-x-100" />
           </a>
         </Button>
       </section>

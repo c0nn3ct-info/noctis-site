@@ -10,7 +10,7 @@ interface Props {
 
 export function BrowserMock({ children, className }: Props) {
   return (
-    <div className={cn('relative isolate', className)}>
+    <div dir="ltr" className={cn('relative isolate', className)}>
       <div className="overflow-hidden rounded-xl border border-outline-variant bg-surface-container-low shadow-e4">
         <div className="flex items-center gap-3 border-b border-outline-variant bg-surface-container px-3 py-2">
           <div className="flex items-center gap-1.5" aria-hidden>

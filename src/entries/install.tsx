@@ -1,6 +1,7 @@
-import { setLocale } from '../i18n';
+import { isLocale, setLocale } from '../i18n';
 import { mountPage } from '../main';
 import { InstallPage } from '../pages/install';
 
-setLocale('en');
+const lang = document.documentElement.lang;
+setLocale(isLocale(lang) ? lang : 'en');
 mountPage(<InstallPage />);

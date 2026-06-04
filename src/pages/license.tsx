@@ -13,7 +13,7 @@ export function LicensePage() {
           {t('license.last_updated')}
         </p>
         <p className="text-body-large text-on-surface-variant">{t('license.intro')}</p>
-        <ol className="space-y-1 pl-5 text-body-large text-on-surface-variant list-decimal">
+        <ol className="space-y-1 ps-5 text-body-large text-on-surface-variant list-decimal">
           <li>
             <b className="text-on-surface">{t('license.item1.b')}</b>
             {t('license.item1.body')}
@@ -42,7 +42,7 @@ export function LicensePage() {
           <div className="space-y-2">
             <h3 className="text-title-small text-on-surface">{t('license.eula.restrictions.h3')}</h3>
             <p>{t('license.eula.restrictions.intro')}</p>
-            <ul className="space-y-1.5 pl-5 list-disc">
+            <ul className="space-y-1.5 ps-5 list-disc">
               <li>{t('license.eula.restrictions.item1')}</li>
               <li>{t('license.eula.restrictions.item2')}</li>
               <li>{t('license.eula.restrictions.item3')}</li>

@@ -1,12 +1,36 @@
 import en from './en.json';
 import ru from './ru.json';
-import type { Locale } from './index';
+import es from './es.json';
+import zhCN from './zh-CN.json';
+import fa from './fa.json';
+import ar from './ar.json';
+import { LOCALES, withLocale, type Locale } from './index';
 
 export type PageKey = 'home' | 'install' | 'privacy' | 'license';
 
 const ORIGIN = 'https://noctis.c0nn3ct.xyz';
+const WEBSTORE_URL =
+  'https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn';
+const GITHUB_ORG = 'https://github.com/c0nn3ct-xyz';
 
-const DICT: Record<Locale, Record<string, string>> = { en, ru };
+const DICT: Record<Locale, Record<string, string>> = {
+  en,
+  ru,
+  es,
+  'zh-CN': zhCN,
+  fa,
+  ar,
+};
+
+/** Open Graph locale codes (BCP-47-ish, underscore form). */
+const OG_LOCALE: Record<Locale, string> = {
+  en: 'en_US',
+  ru: 'ru_RU',
+  es: 'es_ES',
+  'zh-CN': 'zh_CN',
+  fa: 'fa_IR',
+  ar: 'ar_AR',
+};
 
 const PAGE_PATH: Record<PageKey, string> = {
   home: '/',
@@ -30,7 +54,7 @@ export interface MetaPayload {
   og: {
     type: string;
     locale: string;
-    localeAlternate: string;
+    localeAlternate: string[];
     image: string;
     url: string;
     title: string;
@@ -47,10 +71,7 @@ export interface MetaPayload {
 }
 
 export function pathFor(page: PageKey, locale: Locale): string {
-  const base = PAGE_PATH[page];
-  if (locale === 'en') return base;
-  if (base === '/') return '/ru/';
-  return `/ru${base}`;
+  return withLocale(PAGE_PATH[page], locale);
 }
 
 export function getMeta(page: PageKey, locale: Locale): MetaPayload {
@@ -65,14 +86,13 @@ export function getMeta(page: PageKey, locale: Locale): MetaPayload {
     description,
     canonical: url,
     hreflang: [
-      { lang: 'en', href: `${ORIGIN}${pathFor(page, 'en')}` },
-      { lang: 'ru', href: `${ORIGIN}${pathFor(page, 'ru')}` },
+      ...LOCALES.map((l) => ({ lang: l, href: `${ORIGIN}${pathFor(page, l)}` })),
       { lang: 'x-default', href: `${ORIGIN}${pathFor(page, 'en')}` },
     ],
     og: {
       type: 'website',
-      locale: locale === 'en' ? 'en_US' : 'ru_RU',
-      localeAlternate: locale === 'en' ? 'ru_RU' : 'en_US',
+      locale: OG_LOCALE[locale],
+      localeAlternate: LOCALES.filter((l) => l !== locale).map((l) => OG_LOCALE[l]),
       image: `${ORIGIN}/og-preview.jpg`,
       url,
       title,
@@ -104,7 +124,11 @@ export function getJsonLd(page: PageKey, locale: Locale, version: string): JsonL
     name: 'c0nn3ct.xyz',
     url: 'https://c0nn3ct.xyz',
     logo: `${ORIGIN}/favicon.svg`,
-    sameAs: ['https://github.com/c0nn3ct-xyz/noctis-host'],
+    sameAs: [
+      GITHUB_ORG,
+      'https://github.com/c0nn3ct-xyz/noctis-host',
+      'https://github.com/c0nn3ct-xyz/noctis-site',
+    ],
   };
   blocks.push(organization);
 
@@ -118,7 +142,10 @@ export function getJsonLd(page: PageKey, locale: Locale, version: string): JsonL
       operatingSystem: 'Windows, macOS, Linux',
       description: dict['home.description'],
       url,
-      inLanguage: ['en', 'ru'],
+      downloadUrl: WEBSTORE_URL,
+      installUrl: WEBSTORE_URL,
+      sameAs: [WEBSTORE_URL],
+      inLanguage: [...LOCALES],
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       publisher: organization,
       softwareVersion: version,
@@ -187,18 +214,15 @@ export function getJsonLd(page: PageKey, locale: Locale, version: string): JsonL
 
 export function buildSitemap(lastmod: string): string {
   const pages: PageKey[] = ['home', 'install', 'privacy', 'license'];
-  const locales: Locale[] = ['en', 'ru'];
   const urls: string[] = [];
 
   for (const page of pages) {
-    for (const locale of locales) {
+    for (const locale of LOCALES) {
       const url = `${ORIGIN}${pathFor(page, locale)}`;
-      const alts = locales
-        .map(
-          (l) =>
-            `    <xhtml:link rel="alternate" hreflang="${l}" href="${ORIGIN}${pathFor(page, l)}" />`,
-        )
-        .join('\n');
+      const alts = LOCALES.map(
+        (l) =>
+          `    <xhtml:link rel="alternate" hreflang="${l}" href="${ORIGIN}${pathFor(page, l)}" />`,
+      ).join('\n');
       urls.push(
         `  <url>
     <loc>${url}</loc>
@@ -223,10 +247,9 @@ ${urls.join('\n')}
 
 export function getAllRoutes(): { page: PageKey; locale: Locale; path: string }[] {
   const pages: PageKey[] = ['home', 'install', 'privacy', 'license'];
-  const locales: Locale[] = ['en', 'ru'];
   const routes: { page: PageKey; locale: Locale; path: string }[] = [];
   for (const page of pages) {
-    for (const locale of locales) {
+    for (const locale of LOCALES) {
       routes.push({ page, locale, path: pathFor(page, locale) });
     }
   }

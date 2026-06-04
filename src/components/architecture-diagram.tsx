@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 
 export function ArchitectureDiagram() {
   return (
-    <div className="relative flex flex-col gap-3 pt-4 lg:flex-row lg:items-stretch lg:gap-2">
+    <div dir="ltr" className="relative flex flex-col gap-3 pt-4 lg:flex-row lg:items-stretch lg:gap-2">
       <Node
         context="Browser"
         icon={Chrome}

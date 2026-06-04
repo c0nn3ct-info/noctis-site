@@ -31,7 +31,7 @@ export function FaqSection() {
                 <ChevronDown className="mt-0.5 h-4 w-4 shrink-0 text-on-surface-variant transition-transform duration-short ease-emph group-open:rotate-180" />
                 <span className="flex-1">{q}</span>
               </summary>
-              <div className="px-4 pb-4 pl-11 text-body-medium text-on-surface-variant">{a}</div>
+              <div className="px-4 pb-4 ps-11 text-body-medium text-on-surface-variant">{a}</div>
             </details>
           );
         })}
