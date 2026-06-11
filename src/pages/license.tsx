@@ -96,18 +96,40 @@ export function LicensePage() {
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-secondary-container text-secondary-on-container">
               <Package className="h-5 w-5" />
             </span>
-            <CardTitle className="mt-2">{t('license.singbox.h3')}</CardTitle>
+            <CardTitle className="mt-2">{t('license.engines.h3')}</CardTitle>
           </CardHeader>
           <p className="mt-2 text-body-medium text-on-surface-variant">
-            {t('license.singbox.body_before')}
-            <a
-              className="text-on-surface underline underline-offset-4 hover:text-primary"
-              href="https://github.com/SagerNet/sing-box"
-            >
-              {t('license.singbox.body_link')}
-            </a>
-            {t('license.singbox.body_after')}
+            {t('license.engines.intro')}
           </p>
+          <ul className="mt-2 space-y-1 text-body-medium text-on-surface-variant">
+            <li>
+              <a
+                className="text-on-surface underline underline-offset-4 hover:text-primary"
+                href="https://github.com/SagerNet/sing-box"
+              >
+                sing-box
+              </a>{' '}
+              — GPL-3.0
+            </li>
+            <li>
+              <a
+                className="text-on-surface underline underline-offset-4 hover:text-primary"
+                href="https://github.com/XTLS/Xray-core"
+              >
+                xray-core
+              </a>{' '}
+              — MPL-2.0
+            </li>
+            <li>
+              <a
+                className="text-on-surface underline underline-offset-4 hover:text-primary"
+                href="https://github.com/MetaCubeX/mihomo"
+              >
+                mihomo
+              </a>{' '}
+              — GPL-3.0
+            </li>
+          </ul>
         </Card>
       </div>
     </Layout>

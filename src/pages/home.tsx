@@ -24,6 +24,7 @@ const PROTOCOLS = [
 ] as const;
 
 const FEATURE_KEYS = [
+  'engine',
   'servers',
   'routing',
   'modes',
@@ -125,10 +126,10 @@ export function HomePage() {
         <ArchitectureDiagram />
       </section>
 
-      <section className="space-y-3 pb-12" id="singbox">
-        <h2 className="text-headline-small font-medium tracking-tight">{t('home.singbox.h2')}</h2>
+      <section className="space-y-3 pb-12" id="engine">
+        <h2 className="text-headline-small font-medium tracking-tight">{t('home.engine.h2')}</h2>
         <p className="max-w-3xl text-body-large text-on-surface-variant">
-          {t('home.singbox.body')}
+          {t('home.engine.body')}
         </p>
       </section>
 

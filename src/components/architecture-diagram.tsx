@@ -30,8 +30,8 @@ export function ArchitectureDiagram() {
       <Node
         context="Your machine"
         icon={Cpu}
-        title="sing-box"
-        subtitle="Networking engine"
+        title="Proxy engine"
+        subtitle="sing-box, xray, or mihomo"
       />
       <Connector label="proxy protocols" />
       <Node

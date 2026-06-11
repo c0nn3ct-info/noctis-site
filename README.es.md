@@ -24,16 +24,17 @@
 > [!IMPORTANT]
 > Noctis es un proxy para el navegador, no una VPN de sistema. Solo se enruta el tráfico de Chrome; el resto de tu sistema operativo se queda en tu conexión real. La extensión es gratuita bajo una EULA propietaria; el helper nativo es de código abierto (MIT).
 
-Noctis es una extensión de navegador gratuita que enruta Chrome a través de VLESS, VMess, Trojan, Shadowsocks, Hysteria2, Reality y otros servidores proxy mediante un helper local basado en sing-box. Sin VPN de sistema, sin ventana de cliente aparte: el proxy se queda dentro del navegador.
+Noctis es una extensión de navegador gratuita que enruta Chrome a través de VLESS, VMess, Trojan, Shadowsocks, Hysteria2, Reality y otros servidores proxy mediante un helper local que controla un motor de proxy modular: sing-box, xray-core o mihomo. Sin VPN de sistema, sin ventana de cliente aparte: el proxy se queda dentro del navegador.
 
 ## ✨ Funciones
 
+- **Motor de proxy modular** — Noctis incluye sing-box y también puede controlar xray-core o mihomo, eligiendo automáticamente el motor que necesita cada servidor — así xhttp, los flujos REALITY-vision, Snell y más simplemente funcionan.
 - **Servidores desde enlaces de compartir, QR o URL de suscripción** — Pega `vless://`, `vmess://`, `trojan://`, `ss://`, `hysteria2://`, `tuic://`, `wireguard://` — o escanea un código QR. Las URL de suscripción se actualizan automáticamente según un horario.
 - **Enrutamiento por reglas** — Coincidencia por dominio, GeoSite o GeoIP. Cada regla enruta a proxy, directo o bloqueo.
 - **Tres modos de enrutamiento** — Global envía todo a través del proxy. Rules solo enruta las coincidencias. Direct lo omite por completo.
 - **Comprobaciones de estado + conmutación automática** — Sondeos de latencia en segundo plano; ping manual con un toque por servidor. Los servidores que fallan salen de la ruta activa.
 - **Lista de servidores fijados** — Mantén tres favoritos en la parte superior del popup. Cambia el servidor activo sin abrir el panel completo.
-- **Flujo de registros en vivo** — La salida stdout y stderr de sing-box se transmite a la extensión. Diagnostica problemas de conexión sin salir del navegador.
+- **Flujo de registros en vivo** — La salida stdout y stderr del motor de proxy se transmite a la extensión. Diagnostica problemas de conexión sin salir del navegador.
 - **Protección contra fugas de WebRTC** — Un interruptor opcional bloquea el UDP fuera del proxy para que WebRTC no pueda revelar tu IP real.
 - **Reglas integradas de bloqueo de anuncios y rastreadores** — Las familias `geosite:ads` se enrutan a bloqueo de forma predeterminada. Desactívalo si prefieres gestionarlo en otro sitio.
 
@@ -41,11 +42,11 @@ Noctis es una extensión de navegador gratuita que enruta Chrome a través de VL
 
 `VLESS` · `VLESS Reality` · `VMess` · `Trojan` · `Shadowsocks` · `Hysteria/2` · `TUIC` · `WireGuard` · `AnyTLS` · `ShadowTLS`
 
-Noctis admite todos los transportes que expone sing-box: VLESS (incluido VLESS Reality), VMess, Trojan, Shadowsocks, Hysteria2, TUIC, WireGuard, AnyTLS y ShadowTLS. Las configuraciones de los paneles V2Ray, Xray y 3X-UI funcionan tal cual — pega un enlace de compartir o una URL de suscripción y la extensión lo traduce automáticamente en un outbound de sing-box.
+Noctis admite VLESS (incluido VLESS Reality), VMess, Trojan, Shadowsocks, Hysteria2, TUIC, WireGuard, AnyTLS y ShadowTLS. Las configuraciones de los paneles V2Ray, Xray y 3X-UI funcionan tal cual — pega un enlace de compartir o una URL de suscripción y la extensión la traduce automáticamente a la configuración del motor adecuado. xray habilita xhttp/splithttp y variantes de flujo XTLS; mihomo añade Snell, SSR y más.
 
 ## 🧩 Cómo funciona
 
-Los navegadores no pueden ejecutar por sí solos un motor sing-box. Tres piezas reparten el trabajo a través de la frontera del sandbox — y la flecha que la cruza es el único lugar por donde fluyen los mensajes.
+Los navegadores no pueden ejecutar por sí solos un motor de proxy. Tres piezas reparten el trabajo a través de la frontera del sandbox — y la flecha que la cruza es el único lugar por donde fluyen los mensajes.
 
 ```
   Navegador                                  Tu equipo
@@ -56,7 +57,7 @@ Los navegadores no pueden ejecutar por sí solos un motor sing-box. Tres piezas 
   └────────┬─────────┘                              │ arranque · config
            │                                        ▼
            │                                ┌──────────────────┐
-           │  Chrome proxy → SOCKS/HTTP     │     sing-box     │
+           │  Chrome proxy → SOCKS/HTTP     │  motor de proxy  │
            └───────────────────────────────▶│                  │
                                             └────────┬─────────┘
                                                      │ cifrado
@@ -66,16 +67,16 @@ Los navegadores no pueden ejecutar por sí solos un motor sing-box. Tres piezas 
                                             └──────────────────┘
 ```
 
-sing-box es el motor de proxy de código abierto que funciona por debajo de Noctis. Es compatible con las configuraciones de V2Ray y Xray y admite VLESS, VMess, Trojan, Shadowsocks, Hysteria2, TUIC, Reality, AnyTLS, ShadowTLS y WireGuard de fábrica. Noctis incluye un pequeño helper nativo que supervisa sing-box en tu equipo, de modo que la extensión del navegador solo tiene que enviar decisiones de enrutamiento, nunca tráfico en bruto.
+Noctis incluye sing-box de forma predeterminada y también puede controlar xray-core y mihomo. Un pequeño helper nativo supervisa el motor en tu equipo, y Noctis elige el adecuado para cada servidor automáticamente — así los protocolos que un solo motor no puede manejar simplemente funcionan. xray habilita xhttp/splithttp y las variantes de flujo XTLS (REALITY-vision); mihomo añade Snell, SSR y Mieru. La extensión del navegador solo envía decisiones de enrutamiento, nunca tráfico en bruto.
 
 ## 📥 Instalación
 
-La extensión Noctis necesita un pequeño helper nativo ejecutándose en tu equipo. El helper supervisa sing-box, el motor que realmente hace el proxy.
+La extensión Noctis necesita un pequeño helper nativo ejecutándose en tu equipo. El helper supervisa el motor de proxy —sing-box, xray o mihomo— que realmente hace el proxy.
 
 ### Antes de empezar
 
 - Un navegador basado en Chromium, versión 120 o más reciente (Chrome, Chromium, Edge, Brave, Arc, Vivaldi, Opera, Yandex Browser).
-- Unos 50 MB de disco libre para el helper y sing-box.
+- Unos 100 MB de disco libre para el helper y los motores de proxy.
 - Sin permisos de administrador / root — todo se instala en tu cuenta de usuario.
 
 ### Instala la extensión
@@ -103,13 +104,13 @@ curl -fsSL https://noctis.c0nn3ct.xyz/linux.sh | bash -s -- nmhobajopepdpihahepa
 $env:NOCTIS_EXT_ID='nmhobajopepdpihahepaddpdifdcenpn'; iwr -useb https://noctis.c0nn3ct.xyz/windows.ps1 | iex
 ```
 
-El instalador descarga noctis-host y sing-box en tu directorio de datos de usuario y escribe un manifiesto de native-messaging para cada navegador compatible.
+El instalador descarga noctis-host y los motores de proxy (sing-box, xray, mihomo) en tu directorio de datos de usuario y escribe un manifiesto de native-messaging para cada navegador compatible.
 
 La primera vez que la extensión se comunica con el helper, tu navegador puede mostrar un aviso único de native-messaging — apruébalo.
 
 ### Primer arranque
 
-Abre el popup de la extensión, pega un enlace de compartir `vless://`, `ss://` o `trojan://` (o una URL de suscripción) y activa el servidor. La insignia de estado se vuelve verde en cuanto sing-box acepta tráfico.
+Abre el popup de la extensión, pega un enlace de compartir `vless://`, `ss://` o `trojan://` (o una URL de suscripción) y activa el servidor. La insignia de estado se vuelve verde en cuanto el motor acepta tráfico.
 
 ### Actualización
 
@@ -131,10 +132,10 @@ VLESS es un protocolo de proxy ligero de la familia V2Ray/Xray. No lleva cifrado
 Una VPN tuneliza todas las aplicaciones de tu sistema a través de una única conexión y normalmente necesita permisos de administrador. Una extensión proxy de navegador como Noctis solo enruta el navegador, no requiere root ni administrador, y te permite mantener Zoom, Steam, Telegram para escritorio y los torrents en tu red real al mismo tiempo.
 
 **¿Noctis admite VLESS Reality?**
-Sí. VLESS Reality es un outbound estándar de sing-box, y Noctis pasa los parámetros de Reality (Server Name, Fingerprint, SNI, Dest, clave pública, short ID) al helper sin modificarlos. Pega un enlace de compartir `vless://...flow=xtls-rprx-vision&security=reality` y la extensión importa todos los campos.
+Sí. Noctis pasa los parámetros de Reality (Server Name, Fingerprint, SNI, Dest, clave pública, short ID) al helper sin modificarlos y ejecuta el servidor en un motor que los admite — xray ofrece el flujo XTLS-vision completo. Pega un enlace de compartir `vless://...flow=xtls-rprx-vision&security=reality` y la extensión importa todos los campos.
 
 **¿Qué protocolos de proxy admite Noctis?**
-VLESS, VMess, Trojan, Shadowsocks, Hysteria2, TUIC, WireGuard, AnyTLS y ShadowTLS — todo lo que sing-box admite como outbound. Los enlaces de compartir de V2Ray y Xray funcionan tal cual.
+VLESS, VMess, Trojan, Shadowsocks, Hysteria2, TUIC, WireGuard, AnyTLS y ShadowTLS — además de xhttp/splithttp, Snell, SSR y más mediante xray y mihomo. Los enlaces de compartir de V2Ray y Xray funcionan tal cual.
 
 **¿Es seguro usar una extensión proxy de Chrome?**
 Más segura que la mayoría. Noctis no envía nada a su desarrollador — ni analíticas, ni telemetría, ni configuración remota. Las configuraciones de servidor se quedan en el almacenamiento del navegador. El helper nativo se ejecuta sin permisos de administrador. La lista completa de permisos y su justificación están en la [política de privacidad](./PRIVACY.md).
@@ -156,11 +157,12 @@ Es gratis. La extensión es gratuita en Chrome Web Store y el helper nativo es d
 
 ## 🙏 Agradecimientos
 
-- **[sing-box](https://github.com/SagerNet/sing-box)** — el motor de proxy que se encarga de todo el enrutamiento y el cifrado upstream. Noctis es una superficie de control; el trabajo de verdad lo hace sing-box.
-- **[V2Ray](https://github.com/v2fly/v2ray-core)** y **[Xray](https://github.com/XTLS/Xray-core)** — los diseños de protocolo originales (VLESS, VMess, Reality) que Noctis habla mediante outbounds compatibles con sing-box.
+- **[sing-box](https://github.com/SagerNet/sing-box)** (GPL-3.0), **[xray-core](https://github.com/XTLS/Xray-core)** (MPL-2.0) y **[mihomo](https://github.com/MetaCubeX/mihomo)** (GPL-3.0) — los motores de proxy que se encargan de todo el enrutamiento y el cifrado upstream. Noctis es una superficie de control; el trabajo de verdad lo hace el motor, y Noctis elige el adecuado para cada servidor.
+- **[V2Ray](https://github.com/v2fly/v2ray-core)** y **[Xray](https://github.com/XTLS/Xray-core)** — los diseños de protocolo originales (VLESS, VMess, Reality) que Noctis habla.
 
 ## ⚖️ Información legal
 
 - Licencia — EULA propietaria: consulta [LICENSE](./LICENSE.md) o <https://noctis.c0nn3ct.xyz/es/license/>.
 - Privacidad — consulta [PRIVACY](./PRIVACY.md) o <https://noctis.c0nn3ct.xyz/es/privacy/>.
 - Helper nativo — con licencia MIT: consulta <https://github.com/c0nn3ct-xyz/noctis-host>.
+- Motores de proxy — sing-box (GPL-3.0), xray-core (MPL-2.0) y mihomo (GPL-3.0), cada uno redistribuido bajo su licencia upstream.
