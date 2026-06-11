@@ -91,23 +91,34 @@ $manifest = @"
 [System.IO.File]::WriteAllText($manifestPath, $manifest)
 
 $registryRoots = @(
-  'HKCU:\Software\Google\Chrome\NativeMessagingHosts',
-  'HKCU:\Software\Chromium\NativeMessagingHosts',
-  'HKCU:\Software\BraveSoftware\Brave-Browser\NativeMessagingHosts',
-  'HKCU:\Software\Microsoft\Edge\NativeMessagingHosts',
-  'HKCU:\Software\Vivaldi\NativeMessagingHosts',
-  'HKCU:\Software\Opera Software\Opera Stable\NativeMessagingHosts',
-  'HKCU:\Software\Yandex\YandexBrowser\NativeMessagingHosts'
+  'Software\Google\Chrome\NativeMessagingHosts',
+  'Software\Chromium\NativeMessagingHosts',
+  'Software\BraveSoftware\Brave-Browser\NativeMessagingHosts',
+  'Software\Microsoft\Edge\NativeMessagingHosts',
+  'Software\Vivaldi\NativeMessagingHosts',
+  'Software\Opera Software\Opera Stable\NativeMessagingHosts',
+  'Software\Yandex\YandexBrowser\NativeMessagingHosts'
 )
 
 $written = 0
 foreach ($root in $registryRoots) {
-  New-Item -Path $root -Force | Out-Null
-  $key = Join-Path $root 'com.noctis.host'
-  New-Item -Path $key -Force | Out-Null
-  Set-ItemProperty -Path $key -Name '(Default)' -Value $manifestPath
-  Write-Host "  registered $key"
-  $written++
+  $key = "$root\com.noctis.host"
+  try {
+    # Registry.SetValue creates the key (and intermediates) when missing and never
+    # deletes existing subkeys. New-Item -Force delete-recreates instead, which both
+    # wipes sibling host registrations and hits a Windows PowerShell 5.1 bug
+    # ("Cannot delete a subkey tree because the subkey does not exist").
+    [Microsoft.Win32.Registry]::SetValue("HKEY_CURRENT_USER\$key", '', $manifestPath)
+    Write-Host "  registered HKCU\$key"
+    $written++
+  } catch {
+    Write-Warning "  skipped HKCU\$key ($($_.Exception.Message))"
+  }
+}
+
+if ($written -eq 0) {
+  Write-Error 'Could not register the helper for any browser.'
+  exit 1
 }
 
 Write-Host ''
