@@ -300,10 +300,6 @@ function buildSitemapIndex(lastmod) {
     <loc>${ORIGIN}/sitemap.xml</loc>
     <lastmod>${lastmod}</lastmod>
   </sitemap>
-  <sitemap>
-    <loc>${ORIGIN}/site.xml</loc>
-    <lastmod>${lastmod}</lastmod>
-  </sitemap>
 </sitemapindex>
 `;
 }
@@ -369,11 +365,8 @@ async function main() {
     }
 
     const lastmod = new Date().toISOString().slice(0, 10);
-    const sitemap = buildSitemap(lastmod);
-    await writeFile(resolve(distDir, 'sitemap.xml'), sitemap, 'utf8');
+    await writeFile(resolve(distDir, 'sitemap.xml'), buildSitemap(lastmod), 'utf8');
     console.log(`✓ wrote sitemap.xml (lastmod=${lastmod})`);
-    await writeFile(resolve(distDir, 'site.xml'), sitemap, 'utf8');
-    console.log(`✓ wrote site.xml (lastmod=${lastmod})`);
     await writeFile(resolve(distDir, 'sitemap_index.xml'), buildSitemapIndex(lastmod), 'utf8');
     console.log(`✓ wrote sitemap_index.xml (lastmod=${lastmod})`);
   } finally {
