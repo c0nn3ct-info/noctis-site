@@ -53,6 +53,11 @@ INSTALL_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/noctis"
 mkdir -p "$INSTALL_DIR"
 HOST_BIN="$INSTALL_DIR/noctis-host"
 
+# Stop any helper/core still running from a previous install so the binaries can
+# be replaced cleanly; the browser respawns the helper from the new build on its
+# next native message.
+pkill -f "$INSTALL_DIR/" 2>/dev/null || true
+
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 

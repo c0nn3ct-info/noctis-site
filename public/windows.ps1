@@ -42,7 +42,11 @@ if ($wantCores.Count -eq 0) {
 
 $repo = 'c0nn3ct-xyz/noctis-host'
 
-$arch = switch -Wildcard ((Get-CimInstance Win32_Processor).Architecture) {
+# Select-Object -First 1: Win32_Processor returns one object per socket/core, so
+# on multi-processor machines .Architecture is an array. Feeding an array to the
+# switch makes $arch an array too, which interpolates as "arm64 arm64 ..." into
+# the download URL. Pin to a single processor.
+$arch = switch -Wildcard ((Get-CimInstance Win32_Processor | Select-Object -First 1).Architecture) {
   9 { 'amd64' }                # x64
   12 { 'arm64' }
   default { 'amd64' }
@@ -59,11 +63,19 @@ if (-not $tag -or $tag -match 'releases/latest') {
 # Override $env:NOCTIS_CORES_ENV_URL to test against a local copy.
 $coresEnvUrl = if ($env:NOCTIS_CORES_ENV_URL) { $env:NOCTIS_CORES_ENV_URL } else { 'https://noctis.c0nn3ct.xyz/cores.env' }
 $pins = @{}
+$tmpEnv = Join-Path $env:TEMP ("noctis-cores-" + [guid]::NewGuid() + ".env")
 try {
-  $envText = (Invoke-WebRequest -UseBasicParsing -Uri $coresEnvUrl).Content
+  # -OutFile writes the raw bytes regardless of the served content-type; reading
+  # back with Get-Content -Raw decodes to text. Fetching into .Content instead
+  # breaks on GitHub Pages, which serves .env as application/octet-stream and
+  # makes PowerShell's .Content a byte[] rather than a parseable string.
+  Invoke-WebRequest -UseBasicParsing -Uri $coresEnvUrl -OutFile $tmpEnv
+  $envText = Get-Content -Raw -Path $tmpEnv
 } catch {
   Write-Error "Failed to fetch core version pins ($coresEnvUrl)."
   exit 1
+} finally {
+  Remove-Item -Force -ErrorAction SilentlyContinue $tmpEnv
 }
 foreach ($line in ($envText -split "`n")) {
   $line = $line.Trim()
@@ -82,6 +94,12 @@ if (-not $singboxVersion -or -not $xrayVersion -or -not $mihomoVersion) {
 
 $installDir = Join-Path $env:LOCALAPPDATA 'Noctis'
 New-Item -ItemType Directory -Force -Path $installDir | Out-Null
+
+# Stop any helper/core still running from the install dir so the (locked) .exe
+# files can be overwritten; the browser respawns the helper from the new build.
+Get-CimInstance Win32_Process |
+  Where-Object { $_.ExecutablePath -and $_.ExecutablePath -like "$installDir\*" } |
+  ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
 
 $hostBin = Join-Path $installDir 'noctis-host.exe'
 # xray arch token differs from the Go arch: amd64 -> 64, arm64 -> arm64-v8a.
