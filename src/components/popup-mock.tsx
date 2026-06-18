@@ -1,4 +1,5 @@
-import { ArrowRight, ExternalLink, Plus, Power } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowDown, ArrowRight, ArrowUp, ExternalLink, Plus, Power } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Fab } from '@/components/ui/fab';
@@ -9,7 +10,42 @@ import {
 } from '@/components/ui/split-button';
 import { LatencyPip } from '@/components/m3/latency-pip';
 import { ServerMonogram } from '@/components/m3/server-monogram';
+import { AmbientWave } from '@/components/ambient-wave';
 import { cn } from '@/lib/utils';
+
+const WAVE_N = 44;
+const WAVE_MAX = 3_000_000; // fixed scale (bytes/s) so the wave doesn't rescale each tick
+
+function seedTraffic(): { down: number; up: number }[] {
+  return Array.from({ length: WAVE_N }, (_, i) => {
+    const down = 80_000 + Math.abs(Math.sin(i * 0.5) * Math.cos(i * 0.17)) * 1_700_000;
+    return { down, up: down * 0.12 };
+  });
+}
+
+function fmtSpeed(bps: number): { value: string; unit: string } {
+  if (bps >= 1024 * 1024) return { value: (bps / 1048576).toFixed(1), unit: 'MB/s' };
+  if (bps >= 1024) return { value: Math.round(bps / 1024).toString(), unit: 'KB/s' };
+  return { value: Math.round(bps).toString(), unit: 'B/s' };
+}
+
+// Live mock traffic: a rolling buffer that scrolls a new sample in each second,
+// driving the ambient wave + the ↓/↑ readout (random-walk with occasional bursts).
+function useMockTraffic() {
+  const [buf, setBuf] = useState<{ down: number; up: number }[]>(seedTraffic);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setBuf((b) => {
+        const prev = b[b.length - 1].down;
+        const burst = Math.random() < 0.16 ? Math.random() * 1_500_000 : 0;
+        const down = Math.min(2_600_000, Math.max(40_000, prev * 0.55 + Math.random() * 650_000 + burst));
+        return [...b.slice(1), { down, up: down * (0.1 + Math.random() * 0.06) }];
+      });
+    }, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return buf;
+}
 
 interface MockServer {
   name: string;
@@ -40,11 +76,20 @@ const SERVERS: ReadonlyArray<MockServer> = [
 ];
 
 export function PopupMock() {
+  const buf = useMockTraffic();
+  const latest = buf[buf.length - 1];
+  const dn = fmtSpeed(latest.down);
+  const up = fmtSpeed(latest.up);
+  const wavePoints = buf.map((s) => s.down + s.up);
+
   return (
     <div dir="ltr" className="pointer-events-auto flex min-h-[560px] w-[380px] flex-col rounded-lg border border-outline-variant bg-background text-on-surface shadow-e3">
       <section className="shrink-0 px-4 pb-4 pt-4">
-        <Card variant="elevated" padding="md" className="overflow-hidden">
-          <div className="flex items-center gap-4">
+        <Card variant="elevated" padding="md" className="relative overflow-hidden">
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 text-primary opacity-[0.15]">
+            <AmbientWave points={wavePoints} max={WAVE_MAX} className="h-full w-full" />
+          </div>
+          <div className="relative flex items-center gap-4">
             <div className="min-w-0 flex-1 space-y-2">
               <div className="text-label-small uppercase tracking-[0.16em] text-on-surface-variant">
                 Tunnel status
@@ -57,6 +102,18 @@ export function PopupMock() {
                   Amsterdam · via <b className="text-on-surface">reality</b>
                 </div>
                 <div className="block truncate font-mono text-on-surface">203.0.113.47</div>
+              </div>
+              <div className="flex items-center gap-3 pt-0.5 text-label-medium tabular-nums">
+                <span className="inline-flex items-baseline gap-1 text-primary">
+                  <ArrowDown className="h-3 w-3 self-center" aria-hidden />
+                  {dn.value}
+                  <span className="text-[10px] text-on-surface-variant">{dn.unit}</span>
+                </span>
+                <span className="inline-flex items-baseline gap-1 text-on-surface-variant">
+                  <ArrowUp className="h-3 w-3 self-center" aria-hidden />
+                  {up.value}
+                  <span className="text-[10px]">{up.unit}</span>
+                </span>
               </div>
             </div>
             <Fab color="success" size="regular" aria-label="Disconnect" type="button">
