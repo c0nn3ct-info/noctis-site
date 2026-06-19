@@ -52,10 +52,15 @@ $arch = switch -Wildcard ((Get-CimInstance Win32_Processor | Select-Object -Firs
   default { 'amd64' }
 }
 
-$latest = Invoke-WebRequest -UseBasicParsing -MaximumRedirection 5 -Uri "https://github.com/$repo/releases/latest"
-$tag = ($latest.BaseResponse.ResponseUri.AbsolutePath -replace '.*/tag/','').Trim('/')
-if (-not $tag -or $tag -match 'releases/latest') {
-  Write-Error 'Failed to resolve latest noctis-host release tag.'
+# Use GitHub API to get the latest release tag reliably
+try {
+  $latestRelease = Invoke-WebRequest -UseBasicParsing -Uri "https://api.github.com/repos/$repo/releases/latest" | ConvertFrom-Json
+  $tag = $latestRelease.tag_name
+  if (-not $tag) {
+    throw "No tag_name in response"
+  }
+} catch {
+  Write-Error "Failed to resolve latest noctis-host release tag: $($_.Exception.Message)"
   exit 1
 }
 
