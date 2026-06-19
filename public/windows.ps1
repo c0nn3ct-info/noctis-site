@@ -52,10 +52,18 @@ $arch = switch -Wildcard ((Get-CimInstance Win32_Processor | Select-Object -Firs
   default { 'amd64' }
 }
 
-$latest = Invoke-WebRequest -UseBasicParsing -MaximumRedirection 5 -Uri "https://github.com/$repo/releases/latest"
-$tag = ($latest.BaseResponse.ResponseUri.AbsolutePath -replace '.*/tag/','').Trim('/')
-if (-not $tag -or $tag -match 'releases/latest') {
-  Write-Error 'Failed to resolve latest noctis-host release tag.'
+# Resolve latest noctis-host tag via the GitHub API. The redirect from
+# github.com/.../releases/latest is unreliable across PowerShell versions:
+# BaseResponse exposes ResponseUri only on Windows PowerShell 5.1, not 7+.
+try {
+  $tag = (Invoke-RestMethod -UseBasicParsing -Uri "https://api.github.com/repos/$repo/releases/latest" `
+    -Headers @{ 'User-Agent' = 'noctis-installer' }).tag_name
+} catch {
+  Write-Error "Failed to resolve latest noctis-host release tag: $($_.Exception.Message)"
+  exit 1
+}
+if (-not $tag) {
+  Write-Error 'Failed to resolve latest noctis-host release tag (empty tag_name).'
   exit 1
 }
 
