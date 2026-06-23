@@ -13,8 +13,8 @@
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&color=4285F4" alt="Chrome Web Store"></a>
   <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-EULA-blue" alt="License: EULA"></a>
-  <a href="https://github.com/c0nn3ct-xyz/noctis-host"><img src="https://img.shields.io/badge/helper-MIT-green" alt="Helper: MIT"></a>
-  <a href="https://noctis.c0nn3ct.xyz"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.xyz-7c3aed" alt="Live site"></a>
+  <a href="https://github.com/c0nn3ct-info/noctis-host"><img src="https://img.shields.io/badge/helper-MIT-green" alt="Helper: MIT"></a>
+  <a href="https://noctis.c0nn3ct.info"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.info-7c3aed" alt="Live site"></a>
 </p>
 
 <p align="center">
@@ -87,21 +87,21 @@ Install Noctis from the [Chrome Web Store](https://chromewebstore.google.com/det
 
 Copy the command from the extension's Helper Setup dialog and paste it into your terminal. Your extension ID is already filled in — you don't need to look it up. For reference, the command looks like this:
 
-Helper source: <https://github.com/c0nn3ct-xyz/noctis-host>
+Helper source: <https://github.com/c0nn3ct-info/noctis-host>
 
 **macOS**
 ```bash
-curl -fsSL https://noctis.c0nn3ct.xyz/macos.sh | bash -s -- nmhobajopepdpihahepaddpdifdcenpn
+curl -fsSL https://noctis.c0nn3ct.info/macos.sh | bash -s -- nmhobajopepdpihahepaddpdifdcenpn
 ```
 
 **Linux**
 ```bash
-curl -fsSL https://noctis.c0nn3ct.xyz/linux.sh | bash -s -- nmhobajopepdpihahepaddpdifdcenpn
+curl -fsSL https://noctis.c0nn3ct.info/linux.sh | bash -s -- nmhobajopepdpihahepaddpdifdcenpn
 ```
 
 **Windows (PowerShell)**
 ```powershell
-$env:NOCTIS_EXT_ID='nmhobajopepdpihahepaddpdifdcenpn'; iwr -useb https://noctis.c0nn3ct.xyz/windows.ps1 | iex
+$env:NOCTIS_EXT_ID='nmhobajopepdpihahepaddpdifdcenpn'; iwr -useb https://noctis.c0nn3ct.info/windows.ps1 | iex
 ```
 
 The installer downloads noctis-host and the proxy engines (sing-box, xray, mihomo) into your user data directory and writes a native-messaging manifest for every supported browser.
@@ -164,7 +164,7 @@ Free. The extension is free in the Chrome Web Store and the native helper is ope
 
 ## ⚖️ Legal
 
-- License — proprietary EULA: see [LICENSE](./LICENSE.md) or <https://noctis.c0nn3ct.xyz/license/>.
-- Privacy — see [PRIVACY](./PRIVACY.md) or <https://noctis.c0nn3ct.xyz/privacy/>.
-- Native helper — MIT-licensed: see <https://github.com/c0nn3ct-xyz/noctis-host>.
+- License — proprietary EULA: see [LICENSE](./LICENSE.md) or <https://noctis.c0nn3ct.info/license/>.
+- Privacy — see [PRIVACY](./PRIVACY.md) or <https://noctis.c0nn3ct.info/privacy/>.
+- Native helper — MIT-licensed: see <https://github.com/c0nn3ct-info/noctis-host>.
 - Proxy engines — sing-box (GPL-3.0), xray-core (MPL-2.0) and mihomo (GPL-3.0), each redistributed under its upstream license.

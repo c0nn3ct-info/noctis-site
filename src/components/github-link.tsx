@@ -1,7 +1,7 @@
 import { Github } from 'lucide-react';
 import { IconButton } from '@/components/ui/icon-button';
 
-const REPO_URL = 'https://github.com/c0nn3ct-xyz/noctis-site';
+const REPO_URL = 'https://github.com/c0nn3ct-info/noctis-site';
 
 export function GithubLink() {
   return (

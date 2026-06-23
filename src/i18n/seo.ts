@@ -8,10 +8,10 @@ import { LOCALES, withLocale, type Locale } from './index';
 
 export type PageKey = 'home' | 'install' | 'privacy' | 'license';
 
-const ORIGIN = 'https://noctis.c0nn3ct.xyz';
+const ORIGIN = 'https://noctis.c0nn3ct.info';
 const WEBSTORE_URL =
   'https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn';
-const GITHUB_ORG = 'https://github.com/c0nn3ct-xyz';
+const GITHUB_ORG = 'https://github.com/c0nn3ct-info';
 
 const DICT: Record<Locale, Record<string, string>> = {
   en,
@@ -121,13 +121,13 @@ export function getJsonLd(page: PageKey, locale: Locale, version: string): JsonL
   const organization = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'c0nn3ct.xyz',
-    url: 'https://c0nn3ct.xyz',
+    name: 'c0nn3ct.info',
+    url: 'https://c0nn3ct.info',
     logo: `${ORIGIN}/favicon.svg`,
     sameAs: [
       GITHUB_ORG,
-      'https://github.com/c0nn3ct-xyz/noctis-host',
-      'https://github.com/c0nn3ct-xyz/noctis-site',
+      'https://github.com/c0nn3ct-info/noctis-host',
+      'https://github.com/c0nn3ct-info/noctis-site',
     ],
   };
   blocks.push(organization);

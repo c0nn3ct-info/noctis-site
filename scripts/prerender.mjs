@@ -14,10 +14,10 @@ const distDir = resolve(root, 'dist');
 const require = createRequire(import.meta.url);
 const pkg = require(resolve(root, 'package.json'));
 
-const ORIGIN = 'https://noctis.c0nn3ct.xyz';
+const ORIGIN = 'https://noctis.c0nn3ct.info';
 const WEBSTORE_URL =
   'https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn';
-const GITHUB_ORG = 'https://github.com/c0nn3ct-xyz';
+const GITHUB_ORG = 'https://github.com/c0nn3ct-info';
 
 const PAGE_PATH = {
   home: '/',
@@ -103,13 +103,13 @@ function jsonLdBlocks(page, locale, version) {
   const organization = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'c0nn3ct.xyz',
-    url: 'https://c0nn3ct.xyz',
+    name: 'c0nn3ct.info',
+    url: 'https://c0nn3ct.info',
     logo: `${ORIGIN}/favicon.svg`,
     sameAs: [
       GITHUB_ORG,
-      'https://github.com/c0nn3ct-xyz/noctis-host',
-      'https://github.com/c0nn3ct-xyz/noctis-site',
+      'https://github.com/c0nn3ct-info/noctis-host',
+      'https://github.com/c0nn3ct-info/noctis-site',
     ],
   };
   const blocks = [organization];

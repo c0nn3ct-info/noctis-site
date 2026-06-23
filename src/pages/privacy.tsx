@@ -142,9 +142,9 @@ export function PrivacyPage() {
             {t('privacy.contact.body_before')}
             <a
               className="text-on-surface underline underline-offset-4 hover:text-primary"
-              href="mailto:help@c0nn3ct.xyz"
+              href="mailto:help@c0nn3ct.info"
             >
-              help@c0nn3ct.xyz
+              help@c0nn3ct.info
             </a>
             {t('privacy.contact.body_after')}
           </p>

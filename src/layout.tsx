@@ -79,7 +79,7 @@ export function Layout({ current: _current, children }: LayoutProps) {
               <li>
                 <a
                   className="inline-flex items-center gap-2 underline-offset-4 hover:underline"
-                  href="https://github.com/c0nn3ct-xyz/noctis-site"
+                  href="https://github.com/c0nn3ct-info/noctis-site"
                   target="_blank"
                   rel="noreferrer noopener"
                 >
@@ -90,7 +90,7 @@ export function Layout({ current: _current, children }: LayoutProps) {
               <li>
                 <a
                   className="inline-flex items-center gap-2 underline-offset-4 hover:underline"
-                  href="https://github.com/c0nn3ct-xyz/noctis-host"
+                  href="https://github.com/c0nn3ct-info/noctis-host"
                   target="_blank"
                   rel="noreferrer noopener"
                 >

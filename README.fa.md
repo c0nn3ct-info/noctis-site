@@ -13,8 +13,8 @@
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&color=4285F4" alt="Chrome Web Store"></a>
   <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-EULA-blue" alt="مجوز: EULA"></a>
-  <a href="https://github.com/c0nn3ct-xyz/noctis-host"><img src="https://img.shields.io/badge/helper-MIT-green" alt="هِلپر: MIT"></a>
-  <a href="https://noctis.c0nn3ct.xyz"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.xyz-7c3aed" alt="سایت زنده"></a>
+  <a href="https://github.com/c0nn3ct-info/noctis-host"><img src="https://img.shields.io/badge/helper-MIT-green" alt="هِلپر: MIT"></a>
+  <a href="https://noctis.c0nn3ct.info"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.info-7c3aed" alt="سایت زنده"></a>
 </p>
 
 <p align="center">
@@ -87,21 +87,21 @@ Noctis را از [Chrome Web Store](https://chromewebstore.google.com/detail/noc
 
 فرمان را از پنجره Helper Setup افزونه کپی کنید و در ترمینال خود بچسبانید. شناسه افزونه شما از پیش پر شده است — لازم نیست آن را پیدا کنید. برای مرجع، فرمان چنین شکلی دارد:
 
-منبع هِلپر: <https://github.com/c0nn3ct-xyz/noctis-host>
+منبع هِلپر: <https://github.com/c0nn3ct-info/noctis-host>
 
 **macOS**
 ```bash
-curl -fsSL https://noctis.c0nn3ct.xyz/macos.sh | bash -s -- nmhobajopepdpihahepaddpdifdcenpn
+curl -fsSL https://noctis.c0nn3ct.info/macos.sh | bash -s -- nmhobajopepdpihahepaddpdifdcenpn
 ```
 
 **Linux**
 ```bash
-curl -fsSL https://noctis.c0nn3ct.xyz/linux.sh | bash -s -- nmhobajopepdpihahepaddpdifdcenpn
+curl -fsSL https://noctis.c0nn3ct.info/linux.sh | bash -s -- nmhobajopepdpihahepaddpdifdcenpn
 ```
 
 **Windows (PowerShell)**
 ```powershell
-$env:NOCTIS_EXT_ID='nmhobajopepdpihahepaddpdifdcenpn'; iwr -useb https://noctis.c0nn3ct.xyz/windows.ps1 | iex
+$env:NOCTIS_EXT_ID='nmhobajopepdpihahepaddpdifdcenpn'; iwr -useb https://noctis.c0nn3ct.info/windows.ps1 | iex
 ```
 
 نصب‌کننده noctis-host و موتورهای پراکسی (sing-box، xray، mihomo) را در پوشه داده‌های کاربری شما دانلود می‌کند و یک مانیفست native-messaging برای هر مرورگر پشتیبانی‌شده می‌نویسد.
@@ -162,7 +162,7 @@ VLESS، VMess، Trojan، Shadowsocks، Hysteria2، TUIC، WireGuard، AnyTLS و 
 
 ## ⚖️ اطلاعات حقوقی
 
-- مجوز — EULA اختصاصی: ببینید [LICENSE](./LICENSE.md) یا <https://noctis.c0nn3ct.xyz/fa/license/>.
-- حریم خصوصی — ببینید [PRIVACY](./PRIVACY.md) یا <https://noctis.c0nn3ct.xyz/fa/privacy/>.
-- هِلپر بومی — تحت مجوز MIT: ببینید <https://github.com/c0nn3ct-xyz/noctis-host>.
+- مجوز — EULA اختصاصی: ببینید [LICENSE](./LICENSE.md) یا <https://noctis.c0nn3ct.info/fa/license/>.
+- حریم خصوصی — ببینید [PRIVACY](./PRIVACY.md) یا <https://noctis.c0nn3ct.info/fa/privacy/>.
+- هِلپر بومی — تحت مجوز MIT: ببینید <https://github.com/c0nn3ct-info/noctis-host>.
 - موتورهای پراکسی — sing-box (GPL-3.0)، xray-core (MPL-2.0) و mihomo (GPL-3.0)، هرکدام تحت مجوز upstream خود بازتوزیع می‌شوند.

@@ -1,6 +1,6 @@
 # Noctis helper installer for Windows.
 # Usage:
-#   $env:NOCTIS_EXT_ID='<extension-id>'; iwr -useb https://noctis.c0nn3ct.xyz/windows.ps1 | iex
+#   $env:NOCTIS_EXT_ID='<extension-id>'; iwr -useb https://noctis.c0nn3ct.info/windows.ps1 | iex
 #   # optionally choose cores: $env:NOCTIS_CORES='sing-box,xray' (default: all)
 # Or, if you have the script saved locally:
 #   .\windows.ps1 -ExtensionId <extension-id> -Cores sing-box,xray
@@ -40,7 +40,7 @@ if ($wantCores.Count -eq 0) {
   exit 1
 }
 
-$repo = 'c0nn3ct-xyz/noctis-host'
+$repo = 'c0nn3ct-info/noctis-host'
 
 # Select-Object -First 1: Win32_Processor returns one object per socket/core, so
 # on multi-processor machines .Architecture is an array. Feeding an array to the
@@ -69,7 +69,7 @@ if (-not $tag) {
 
 # Pinned core versions — single source of truth served alongside this script.
 # Override $env:NOCTIS_CORES_ENV_URL to test against a local copy.
-$coresEnvUrl = if ($env:NOCTIS_CORES_ENV_URL) { $env:NOCTIS_CORES_ENV_URL } else { 'https://noctis.c0nn3ct.xyz/cores.env' }
+$coresEnvUrl = if ($env:NOCTIS_CORES_ENV_URL) { $env:NOCTIS_CORES_ENV_URL } else { 'https://noctis.c0nn3ct.info/cores.env' }
 $pins = @{}
 $tmpEnv = Join-Path $env:TEMP ("noctis-cores-" + [guid]::NewGuid() + ".env")
 try {

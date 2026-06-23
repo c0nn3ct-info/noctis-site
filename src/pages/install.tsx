@@ -43,15 +43,15 @@ function coresArg(sel: SiteCore[]): string | null {
 
 function macosCmd(sel: SiteCore[]): string {
   const a = coresArg(sel);
-  return `curl -fsSL https://noctis.c0nn3ct.xyz/macos.sh | bash -s -- ${WEBSTORE_EXT_ID}${a ? ` ${a}` : ''}`;
+  return `curl -fsSL https://noctis.c0nn3ct.info/macos.sh | bash -s -- ${WEBSTORE_EXT_ID}${a ? ` ${a}` : ''}`;
 }
 function linuxCmd(sel: SiteCore[]): string {
   const a = coresArg(sel);
-  return `curl -fsSL https://noctis.c0nn3ct.xyz/linux.sh | bash -s -- ${WEBSTORE_EXT_ID}${a ? ` ${a}` : ''}`;
+  return `curl -fsSL https://noctis.c0nn3ct.info/linux.sh | bash -s -- ${WEBSTORE_EXT_ID}${a ? ` ${a}` : ''}`;
 }
 function windowsCmd(sel: SiteCore[]): string {
   const a = coresArg(sel);
-  return `${a ? `$env:NOCTIS_CORES='${a}'; ` : ''}$env:NOCTIS_EXT_ID='${WEBSTORE_EXT_ID}'; iwr -useb https://noctis.c0nn3ct.xyz/windows.ps1 | iex`;
+  return `${a ? `$env:NOCTIS_CORES='${a}'; ` : ''}$env:NOCTIS_EXT_ID='${WEBSTORE_EXT_ID}'; iwr -useb https://noctis.c0nn3ct.info/windows.ps1 | iex`;
 }
 
 function CodeBlock({ children }: { children: string }) {
@@ -191,7 +191,7 @@ export function InstallPage() {
             <div>
               <Button asChild variant="outlined" size="s">
                 <a
-                  href="https://github.com/c0nn3ct-xyz/noctis-host"
+                  href="https://github.com/c0nn3ct-info/noctis-host"
                   target="_blank"
                   rel="noreferrer noopener"
                 >

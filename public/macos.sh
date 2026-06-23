@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Noctis helper installer for macOS.
-# Usage:  curl -fsSL https://noctis.c0nn3ct.xyz/macos.sh | bash -s -- <chrome-extension-id> [cores]
+# Usage:  curl -fsSL https://noctis.c0nn3ct.info/macos.sh | bash -s -- <chrome-extension-id> [cores]
 #   [cores] = all (default) | comma-separated subset of: sing-box,xray,mihomo
 #   (or set NOCTIS_CORES=sing-box,xray in the environment)
 set -euo pipefail
@@ -33,7 +33,7 @@ if [[ ${#WANT_CORES[@]} -eq 0 ]]; then
   echo "No cores selected." >&2; exit 1
 fi
 
-REPO="c0nn3ct-xyz/noctis-host"
+REPO="c0nn3ct-info/noctis-host"
 
 uname_m="$(uname -m)"
 case "$uname_m" in
@@ -63,7 +63,7 @@ trap 'rm -rf "$TMP"' EXIT
 
 # Pinned core versions — single source of truth served alongside this script.
 # Override NOCTIS_CORES_ENV_URL to test against a local copy (e.g. a file:// URL).
-CORES_ENV_URL="${NOCTIS_CORES_ENV_URL:-https://noctis.c0nn3ct.xyz/cores.env}"
+CORES_ENV_URL="${NOCTIS_CORES_ENV_URL:-https://noctis.c0nn3ct.info/cores.env}"
 if ! curl -fsSL "$CORES_ENV_URL" -o "$TMP/cores.env"; then
   echo "Failed to fetch core version pins ($CORES_ENV_URL)." >&2; exit 1
 fi

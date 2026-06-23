@@ -4,7 +4,7 @@ _Last updated: 2026-05-15_
 
 Noctis is built to do one thing — route your browser's traffic through proxy servers you have configured. This policy explains exactly what data the Software touches, what it does with that data, and what it deliberately does not do. It applies to the Noctis browser extension and its native helper (`noctis-host`).
 
-The authoritative, always-current version of this document is published at <https://noctis.c0nn3ct.xyz/privacy/>.
+The authoritative, always-current version of this document is published at <https://noctis.c0nn3ct.info/privacy/>.
 
 ## 1. What Noctis stores
 
@@ -53,7 +53,7 @@ Noctis is not designed for or directed at children under 13, and it collects no 
 
 ## 6. Contact
 
-For privacy questions, write to <help@c0nn3ct.xyz>.
+For privacy questions, write to <help@c0nn3ct.info>.
 
 ## 7. Changes to this policy
 

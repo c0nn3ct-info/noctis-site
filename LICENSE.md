@@ -5,16 +5,16 @@ _Last updated: 2026-05-15_
 Noctis is distributed under three separate licenses, one per component:
 
 1. **Noctis browser extension** — proprietary End-User License Agreement (full text in Section 1 below).
-2. **Noctis native helper** — MIT License. Source and full license text: <https://github.com/c0nn3ct-xyz/noctis-host>.
+2. **Noctis native helper** — MIT License. Source and full license text: <https://github.com/c0nn3ct-info/noctis-host>.
 3. **sing-box** — redistributed under its upstream license. Source and full license text: <https://github.com/SagerNet/sing-box>.
 
-The authoritative, always-current version of this document is published at <https://noctis.c0nn3ct.xyz/license/>.
+The authoritative, always-current version of this document is published at <https://noctis.c0nn3ct.info/license/>.
 
 ---
 
 ## 1. Noctis browser extension — End-User License Agreement
 
-Copyright © 2026 c0nn3ct.xyz. All rights reserved.
+Copyright © 2026 c0nn3ct.info. All rights reserved.
 
 The Noctis browser extension (the "Software") is licensed, not sold. By installing, copying, or otherwise using the Software, you agree to be bound by the terms of this Agreement. If you do not agree to these terms, do not install or use the Software.
 
@@ -51,7 +51,7 @@ This license is governed by the laws of the jurisdiction in which the author res
 
 ## 2. Noctis native helper
 
-The Noctis native helper (`noctis-host`) is open-source software licensed under the **MIT License**. The full license text and source code are available at <https://github.com/c0nn3ct-xyz/noctis-host>.
+The Noctis native helper (`noctis-host`) is open-source software licensed under the **MIT License**. The full license text and source code are available at <https://github.com/c0nn3ct-info/noctis-host>.
 
 ## 3. sing-box
 
