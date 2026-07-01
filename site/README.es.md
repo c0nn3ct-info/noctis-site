@@ -13,7 +13,7 @@
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&color=4285F4" alt="Chrome Web Store"></a>
   <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-EULA-blue" alt="Licencia: EULA"></a>
-  <a href="https://github.com/c0nn3ct-info/noctis-host"><img src="https://img.shields.io/badge/helper-MIT-green" alt="Helper: MIT"></a>
+  <a href="https://github.com/c0nn3ct-info/noctis"><img src="https://img.shields.io/badge/helper-MIT-green" alt="Helper: MIT"></a>
   <a href="https://noctis.c0nn3ct.info"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.info-7c3aed" alt="Sitio web"></a>
 </p>
 
@@ -87,7 +87,7 @@ Instala Noctis desde [Chrome Web Store](https://chromewebstore.google.com/detail
 
 Copia el comando del diálogo Helper Setup de la extensión y pégalo en tu terminal. El ID de tu extensión ya está incluido — no necesitas buscarlo. A modo de referencia, el comando tiene este aspecto:
 
-Código fuente del helper: <https://github.com/c0nn3ct-info/noctis-host>
+Código fuente del helper: <https://github.com/c0nn3ct-info/noctis>
 
 **macOS**
 ```bash
@@ -164,5 +164,5 @@ Es gratis. La extensión es gratuita en Chrome Web Store y el helper nativo es d
 
 - Licencia — EULA propietaria: consulta [LICENSE](./LICENSE.md) o <https://noctis.c0nn3ct.info/es/license/>.
 - Privacidad — consulta [PRIVACY](./PRIVACY.md) o <https://noctis.c0nn3ct.info/es/privacy/>.
-- Helper nativo — con licencia MIT: consulta <https://github.com/c0nn3ct-info/noctis-host>.
+- Helper nativo — con licencia MIT: consulta <https://github.com/c0nn3ct-info/noctis>.
 - Motores de proxy — sing-box (GPL-3.0), xray-core (MPL-2.0) y mihomo (GPL-3.0), cada uno redistribuido bajo su licencia upstream.

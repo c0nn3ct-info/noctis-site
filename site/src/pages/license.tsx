@@ -84,7 +84,7 @@ export function LicensePage() {
             {t('license.helper.body_before')}
             <a
               className="text-on-surface underline underline-offset-4 hover:text-primary"
-              href="https://github.com/c0nn3ct-info/noctis-host"
+              href="https://github.com/c0nn3ct-info/noctis"
             >
               {t('license.helper.body_link')}
             </a>

@@ -1,0 +1,193 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag to create (e.g. v1.0.0)'
+        required: true
+        type: string
+
+env:
+  GO_VERSION: '1.25'
+  SINGBOX_VERSION: '1.10.7'
+
+permissions:
+  contents: write
+
+jobs:
+  resolve-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.out.outputs.version }}
+      version_noV: ${{ steps.out.outputs.version_noV }}
+    steps:
+      - name: Resolve version
+        id: out
+        run: |
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            v="${GITHUB_REF_NAME}"
+          else
+            v="${{ inputs.version }}"
+          fi
+          [[ "$v" =~ ^v[0-9]+\.[0-9]+\.[0-9]+ ]] || { echo "invalid version: $v"; exit 1; }
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "version_noV=${v#v}" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: resolve-version
+    defaults:
+      run:
+        working-directory: host
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: darwin,  arch: arm64, runner: ubuntu-latest, ext: '', sb_ext: tar.gz, archive: tar.gz }
+          - { os: darwin,  arch: amd64, runner: ubuntu-latest, ext: '', sb_ext: tar.gz, archive: tar.gz }
+          - { os: linux,   arch: amd64, runner: ubuntu-latest, ext: '', sb_ext: tar.gz, archive: tar.gz }
+          - { os: linux,   arch: arm64, runner: ubuntu-latest, ext: '', sb_ext: tar.gz, archive: tar.gz }
+          - { os: windows, arch: amd64, runner: ubuntu-latest, ext: '.exe', sb_ext: zip,    archive: zip    }
+          - { os: windows, arch: arm64, runner: ubuntu-latest, ext: '.exe', sb_ext: zip,    archive: zip    }
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          check-latest: true
+
+      - name: Build noctis-host
+        env:
+          GOOS: ${{ matrix.os }}
+          GOARCH: ${{ matrix.arch }}
+          CGO_ENABLED: '0'
+        run: |
+          mkdir -p dist
+          go build -trimpath -ldflags="-s -w -X main.hostVersion=${{ needs.resolve-version.outputs.version_noV }}" \
+            -o "dist/noctis-host${{ matrix.ext }}" .
+
+      - name: Download sing-box
+        env:
+          SB_OS: ${{ matrix.os }}
+          SB_ARCH: ${{ matrix.arch }}
+          SB_EXT: ${{ matrix.sb_ext }}
+        run: |
+          set -euo pipefail
+          NAME="sing-box-${SINGBOX_VERSION}-${SB_OS}-${SB_ARCH}"
+          URL="https://github.com/SagerNet/sing-box/releases/download/v${SINGBOX_VERSION}/${NAME}.${SB_EXT}"
+          TMP="$(mktemp -d)"
+          echo "downloading $URL"
+          curl -fL "$URL" -o "$TMP/sb.${SB_EXT}"
+          if [[ "$SB_EXT" == "zip" ]]; then
+            unzip -q "$TMP/sb.${SB_EXT}" -d "$TMP"
+            cp "$TMP/${NAME}/sing-box.exe" "dist/sing-box.exe"
+          else
+            tar -xzf "$TMP/sb.${SB_EXT}" -C "$TMP"
+            cp "$TMP/${NAME}/sing-box" "dist/sing-box"
+            chmod +x "dist/sing-box"
+          fi
+          rm -rf "$TMP"
+
+      - name: Stage install scripts
+        run: |
+          mkdir -p dist/install
+          cp -r install/* dist/install/ 2>/dev/null || true
+          cp LICENSE README.md dist/ 2>/dev/null || true
+
+      - name: Package archive
+        id: pack
+        env:
+          PKG_NAME: noctis-host-${{ needs.resolve-version.outputs.version }}-${{ matrix.os }}-${{ matrix.arch }}
+        run: |
+          set -euo pipefail
+          STAGE="$(mktemp -d)/$PKG_NAME"
+          mkdir -p "$STAGE"
+          cp -r dist/* "$STAGE/"
+          cd "$(dirname "$STAGE")"
+          if [[ "${{ matrix.archive }}" == "zip" ]]; then
+            zip -qr "$GITHUB_WORKSPACE/$PKG_NAME.zip" "$PKG_NAME"
+            echo "asset=$PKG_NAME.zip" >> "$GITHUB_OUTPUT"
+          else
+            tar -czf "$GITHUB_WORKSPACE/$PKG_NAME.tar.gz" "$PKG_NAME"
+            echo "asset=$PKG_NAME.tar.gz" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checksum
+        working-directory: ${{ github.workspace }}
+        run: sha256sum "${{ steps.pack.outputs.asset }}" > "${{ steps.pack.outputs.asset }}.sha256"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }}-${{ matrix.arch }}
+          path: |
+            ${{ steps.pack.outputs.asset }}
+            ${{ steps.pack.outputs.asset }}.sha256
+          if-no-files-found: error
+          retention-days: 1
+
+  release:
+    needs: [resolve-version, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (need the tag for release notes)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create tag if workflow_dispatch
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          TAG: ${{ needs.resolve-version.outputs.version }}
+        run: |
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "tag $TAG already exists, skipping create"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag "$TAG"
+            git push origin "$TAG"
+          fi
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Flatten + combined checksums
+        run: |
+          mkdir -p release
+          find artifacts -type f \( -name '*.tar.gz' -o -name '*.zip' -o -name '*.sha256' \) -exec mv {} release/ \;
+          cd release
+          cat *.sha256 > SHA256SUMS
+          rm -f *.sha256
+
+      - name: Build release notes from tag annotation
+        env:
+          TAG: ${{ needs.resolve-version.outputs.version }}
+        run: |
+          # The annotated tag message body IS the changelog (see release skill / mirror sync).
+          git fetch --force --tags origin "refs/tags/$TAG:refs/tags/$TAG" 2>/dev/null || true
+          git for-each-ref "refs/tags/$TAG" --format='%(contents:body)' > RELEASE_NOTES.md
+          # Lightweight/empty-body tag fallback so the release body is never blank.
+          [ -s RELEASE_NOTES.md ] || printf 'Release %s\n' "$TAG" > RELEASE_NOTES.md
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.resolve-version.outputs.version }}
+          name: ${{ needs.resolve-version.outputs.version }}
+          body_path: RELEASE_NOTES.md
+          append_body: false
+          fail_on_unmatched_files: true
+          files: |
+            release/*.tar.gz
+            release/*.zip
+            release/SHA256SUMS

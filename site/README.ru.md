@@ -13,7 +13,7 @@
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&color=4285F4" alt="Chrome Web Store"></a>
   <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-EULA-blue" alt="Лицензия: EULA"></a>
-  <a href="https://github.com/c0nn3ct-info/noctis-host"><img src="https://img.shields.io/badge/helper-MIT-green" alt="Helper: MIT"></a>
+  <a href="https://github.com/c0nn3ct-info/noctis"><img src="https://img.shields.io/badge/helper-MIT-green" alt="Helper: MIT"></a>
   <a href="https://noctis.c0nn3ct.info"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.info-7c3aed" alt="Сайт"></a>
 </p>
 
@@ -87,7 +87,7 @@ Noctis по умолчанию поставляется с sing-box и умее�
 
 Скопируйте команду из диалога Helper Setup и вставьте в терминал. ID расширения уже подставлен — искать ничего не нужно. Для справки команда выглядит так:
 
-Исходники хелпера: <https://github.com/c0nn3ct-info/noctis-host>
+Исходники хелпера: <https://github.com/c0nn3ct-info/noctis>
 
 **macOS**
 ```bash
@@ -164,5 +164,5 @@ Noctis — это всего лишь прокси-клиент, который 
 
 - Лицензия — проприетарная EULA: см. [LICENSE](./LICENSE.md) или <https://noctis.c0nn3ct.info/ru/license/>.
 - Приватность — см. [PRIVACY](./PRIVACY.md) или <https://noctis.c0nn3ct.info/ru/privacy/>.
-- Нативный хелпер — лицензия MIT: см. <https://github.com/c0nn3ct-info/noctis-host>.
+- Нативный хелпер — лицензия MIT: см. <https://github.com/c0nn3ct-info/noctis>.
 - Движки прокси — sing-box (GPL-3.0), xray-core (MPL-2.0) и mihomo (GPL-3.0), каждый переиздаётся под своей upstream-лицензией.

@@ -126,8 +126,7 @@ export function getJsonLd(page: PageKey, locale: Locale, version: string): JsonL
     logo: `${ORIGIN}/favicon.svg`,
     sameAs: [
       GITHUB_ORG,
-      'https://github.com/c0nn3ct-info/noctis-host',
-      'https://github.com/c0nn3ct-info/noctis-site',
+      'https://github.com/c0nn3ct-info/noctis',
     ],
   };
   blocks.push(organization);

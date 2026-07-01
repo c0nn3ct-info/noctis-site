@@ -191,7 +191,7 @@ export function InstallPage() {
             <div>
               <Button asChild variant="outlined" size="s">
                 <a
-                  href="https://github.com/c0nn3ct-info/noctis-host"
+                  href="https://github.com/c0nn3ct-info/noctis"
                   target="_blank"
                   rel="noreferrer noopener"
                 >

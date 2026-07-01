@@ -40,7 +40,7 @@ if ($wantCores.Count -eq 0) {
   exit 1
 }
 
-$repo = 'c0nn3ct-info/noctis-host'
+$repo = 'c0nn3ct-info/noctis'
 
 # Select-Object -First 1: Win32_Processor returns one object per socket/core, so
 # on multi-processor machines .Architecture is an array. Feeding an array to the

@@ -3,6 +3,7 @@ name: Deploy site to GitHub Pages
 on:
   push:
     branches: [main]
+    paths: ['site/**']
   workflow_dispatch:
 
 permissions:
@@ -26,23 +27,29 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: site/package-lock.json
 
       - name: Install dependencies
+        working-directory: site
         run: npm ci
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Build site
+        working-directory: site
         run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./site/dist
 
   deploy:
     needs: build
+    # Deploy only from main; branch builds (e.g. workflow_dispatch on a staging
+    # branch) still produce an inspectable artifact but never publish to Pages.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

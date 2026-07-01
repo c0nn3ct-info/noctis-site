@@ -33,7 +33,7 @@ if [[ ${#WANT_CORES[@]} -eq 0 ]]; then
   echo "No cores selected." >&2; exit 1
 fi
 
-REPO="c0nn3ct-info/noctis-host"
+REPO="c0nn3ct-info/noctis"
 
 uname_m="$(uname -m)"
 case "$uname_m" in
