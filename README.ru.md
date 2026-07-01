@@ -2,8 +2,8 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./media/logo-dark.png">
-    <img alt="Noctis" src="./media/logo-light.png" width="120">
+    <source media="(prefers-color-scheme: dark)" srcset="./site/media/logo-dark.png">
+    <img alt="Noctis" src="./site/media/logo-light.png" width="120">
   </picture>
 </p>
 
@@ -12,13 +12,13 @@
 
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&color=4285F4" alt="Chrome Web Store"></a>
-  <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-EULA-blue" alt="Лицензия: EULA"></a>
+  <a href="./site/LICENSE.md"><img src="https://img.shields.io/badge/license-EULA-blue" alt="Лицензия: EULA"></a>
   <a href="https://github.com/c0nn3ct-info/noctis"><img src="https://img.shields.io/badge/helper-MIT-green" alt="Helper: MIT"></a>
   <a href="https://noctis.c0nn3ct.info"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.info-7c3aed" alt="Сайт"></a>
 </p>
 
 <p align="center">
-  <img alt="Noctis home" src="./media/screenshots/home.png" width="720">
+  <img alt="Noctis home" src="./site/media/screenshots/home.png" width="720">
 </p>
 
 > [!IMPORTANT]
@@ -138,7 +138,7 @@ VPN тоннелирует все приложения системы через
 VLESS, VMess, Trojan, Shadowsocks, Hysteria2, TUIC, WireGuard, AnyTLS и ShadowTLS — плюс xhttp/splithttp, Snell, SSR и другое через xray и mihomo. Share-ссылки V2Ray и Xray работают как есть.
 
 **Безопасно ли использовать прокси-расширение для Chrome?**
-Безопаснее большинства. Noctis ничего не отправляет разработчику — никакой аналитики, телеметрии, удалённой конфигурации. Конфиги серверов хранятся в storage браузера. Нативный хелпер работает без прав администратора. Полный список разрешений и обоснование — в [политике приватности](./PRIVACY.md).
+Безопаснее большинства. Noctis ничего не отправляет разработчику — никакой аналитики, телеметрии, удалённой конфигурации. Конфиги серверов хранятся в storage браузера. Нативный хелпер работает без прав администратора. Полный список разрешений и обоснование — в [политике приватности](./site/PRIVACY.md).
 
 **Работает ли Noctis на Windows, macOS и Linux?**
 Да — в Chromium-браузерах на Windows, macOS и Linux (Chrome, Edge, Brave, Arc, Vivaldi, Opera, Yandex Browser). Установщик хелпера — одна команда для каждой платформы.
@@ -162,7 +162,7 @@ Noctis — это всего лишь прокси-клиент, который 
 
 ## ⚖️ Юридическая информация
 
-- Лицензия — проприетарная EULA: см. [LICENSE](./LICENSE.md) или <https://noctis.c0nn3ct.info/ru/license/>.
-- Приватность — см. [PRIVACY](./PRIVACY.md) или <https://noctis.c0nn3ct.info/ru/privacy/>.
+- Лицензия — проприетарная EULA: см. [LICENSE](./site/LICENSE.md) или <https://noctis.c0nn3ct.info/ru/license/>.
+- Приватность — см. [PRIVACY](./site/PRIVACY.md) или <https://noctis.c0nn3ct.info/ru/privacy/>.
 - Нативный хелпер — лицензия MIT: см. <https://github.com/c0nn3ct-info/noctis>.
 - Движки прокси — sing-box (GPL-3.0), xray-core (MPL-2.0) и mihomo (GPL-3.0), каждый переиздаётся под своей upstream-лицензией.

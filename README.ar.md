@@ -2,8 +2,8 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./media/logo-dark.png">
-    <img alt="Noctis" src="./media/logo-light.png" width="120">
+    <source media="(prefers-color-scheme: dark)" srcset="./site/media/logo-dark.png">
+    <img alt="Noctis" src="./site/media/logo-light.png" width="120">
   </picture>
 </p>
 
@@ -12,13 +12,13 @@
 
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&color=4285F4" alt="Chrome Web Store"></a>
-  <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-EULA-blue" alt="الترخيص: EULA"></a>
+  <a href="./site/LICENSE.md"><img src="https://img.shields.io/badge/license-EULA-blue" alt="الترخيص: EULA"></a>
   <a href="https://github.com/c0nn3ct-info/noctis"><img src="https://img.shields.io/badge/helper-MIT-green" alt="المساعد: MIT"></a>
   <a href="https://noctis.c0nn3ct.info"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.info-7c3aed" alt="الموقع"></a>
 </p>
 
 <p align="center">
-  <img alt="Noctis home" src="./media/screenshots/home.png" width="720">
+  <img alt="Noctis home" src="./site/media/screenshots/home.png" width="720">
 </p>
 
 > [!IMPORTANT]
@@ -138,7 +138,7 @@ VLESS بروتوكول وكيل خفيف من عائلة V2Ray/Xray. لا يحم
 VLESS وVMess وTrojan وShadowsocks وHysteria2 وTUIC وWireGuard وAnyTLS وShadowTLS — إضافةً إلى xhttp/splithttp وSnell وSSR وغيرها عبر xray وmihomo. وتعمل روابط مشاركة V2Ray وXray كما هي.
 
 **هل استخدام إضافة وكيل لـ Chrome آمن؟**
-أكثر أمانًا من معظمها. لا يرسل Noctis أي شيء إلى مطوّره — لا تحليلات ولا قياس عن بُعد ولا إعدادات بعيدة. تبقى إعدادات الخوادم في تخزين المتصفّح. يعمل المساعد الأصلي دون صلاحيات مسؤول. تجد قائمة الصلاحيات الكاملة ومبرّراتها في [سياسة الخصوصية](./PRIVACY.md).
+أكثر أمانًا من معظمها. لا يرسل Noctis أي شيء إلى مطوّره — لا تحليلات ولا قياس عن بُعد ولا إعدادات بعيدة. تبقى إعدادات الخوادم في تخزين المتصفّح. يعمل المساعد الأصلي دون صلاحيات مسؤول. تجد قائمة الصلاحيات الكاملة ومبرّراتها في [سياسة الخصوصية](./site/PRIVACY.md).
 
 **هل يعمل Noctis على Windows وmacOS وLinux؟**
 نعم — على المتصفّحات المبنية على Chromium في Windows وmacOS وLinux (Chrome وEdge وBrave وArc وVivaldi وOpera وYandex Browser). للمساعد الأصلي سكربتات تثبيت من سطر واحد لكل منصّة.
@@ -162,7 +162,7 @@ Noctis في حدّ ذاته مجرّد عميل وكيل — يوجّه متصف
 
 ## ⚖️ الجوانب القانونية
 
-- الترخيص — EULA مملوك: انظر [LICENSE](./LICENSE.md) أو <https://noctis.c0nn3ct.info/ar/license/>.
-- الخصوصية — انظر [PRIVACY](./PRIVACY.md) أو <https://noctis.c0nn3ct.info/ar/privacy/>.
+- الترخيص — EULA مملوك: انظر [LICENSE](./site/LICENSE.md) أو <https://noctis.c0nn3ct.info/ar/license/>.
+- الخصوصية — انظر [PRIVACY](./site/PRIVACY.md) أو <https://noctis.c0nn3ct.info/ar/privacy/>.
 - المساعد الأصلي — بترخيص MIT: انظر <https://github.com/c0nn3ct-info/noctis>.
 - محرّكات الوكيل — sing-box (GPL-3.0) وxray-core (MPL-2.0) وmihomo (GPL-3.0)، يُعاد توزيع كلٍّ منها بترخيصه الأصلي.

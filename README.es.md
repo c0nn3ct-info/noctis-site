@@ -2,8 +2,8 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./media/logo-dark.png">
-    <img alt="Noctis" src="./media/logo-light.png" width="120">
+    <source media="(prefers-color-scheme: dark)" srcset="./site/media/logo-dark.png">
+    <img alt="Noctis" src="./site/media/logo-light.png" width="120">
   </picture>
 </p>
 
@@ -12,13 +12,13 @@
 
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/noctis/nmhobajopepdpihahepaddpdifdcenpn"><img src="https://img.shields.io/chrome-web-store/v/nmhobajopepdpihahepaddpdifdcenpn?label=Chrome%20Web%20Store&color=4285F4" alt="Chrome Web Store"></a>
-  <a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-EULA-blue" alt="Licencia: EULA"></a>
+  <a href="./site/LICENSE.md"><img src="https://img.shields.io/badge/license-EULA-blue" alt="Licencia: EULA"></a>
   <a href="https://github.com/c0nn3ct-info/noctis"><img src="https://img.shields.io/badge/helper-MIT-green" alt="Helper: MIT"></a>
   <a href="https://noctis.c0nn3ct.info"><img src="https://img.shields.io/badge/site-noctis.c0nn3ct.info-7c3aed" alt="Sitio web"></a>
 </p>
 
 <p align="center">
-  <img alt="Noctis home" src="./media/screenshots/home.png" width="720">
+  <img alt="Noctis home" src="./site/media/screenshots/home.png" width="720">
 </p>
 
 > [!IMPORTANT]
@@ -138,7 +138,7 @@ Sí. Noctis pasa los parámetros de Reality (Server Name, Fingerprint, SNI, Dest
 VLESS, VMess, Trojan, Shadowsocks, Hysteria2, TUIC, WireGuard, AnyTLS y ShadowTLS — además de xhttp/splithttp, Snell, SSR y más mediante xray y mihomo. Los enlaces de compartir de V2Ray y Xray funcionan tal cual.
 
 **¿Es seguro usar una extensión proxy de Chrome?**
-Más segura que la mayoría. Noctis no envía nada a su desarrollador — ni analíticas, ni telemetría, ni configuración remota. Las configuraciones de servidor se quedan en el almacenamiento del navegador. El helper nativo se ejecuta sin permisos de administrador. La lista completa de permisos y su justificación están en la [política de privacidad](./PRIVACY.md).
+Más segura que la mayoría. Noctis no envía nada a su desarrollador — ni analíticas, ni telemetría, ni configuración remota. Las configuraciones de servidor se quedan en el almacenamiento del navegador. El helper nativo se ejecuta sin permisos de administrador. La lista completa de permisos y su justificación están en la [política de privacidad](./site/PRIVACY.md).
 
 **¿Noctis funciona en Windows, macOS y Linux?**
 Sí — en navegadores basados en Chromium en Windows, macOS y Linux (Chrome, Edge, Brave, Arc, Vivaldi, Opera, Yandex Browser). El helper nativo tiene scripts de instalación de una línea para cada plataforma.
@@ -162,7 +162,7 @@ Es gratis. La extensión es gratuita en Chrome Web Store y el helper nativo es d
 
 ## ⚖️ Información legal
 
-- Licencia — EULA propietaria: consulta [LICENSE](./LICENSE.md) o <https://noctis.c0nn3ct.info/es/license/>.
-- Privacidad — consulta [PRIVACY](./PRIVACY.md) o <https://noctis.c0nn3ct.info/es/privacy/>.
+- Licencia — EULA propietaria: consulta [LICENSE](./site/LICENSE.md) o <https://noctis.c0nn3ct.info/es/license/>.
+- Privacidad — consulta [PRIVACY](./site/PRIVACY.md) o <https://noctis.c0nn3ct.info/es/privacy/>.
 - Helper nativo — con licencia MIT: consulta <https://github.com/c0nn3ct-info/noctis>.
 - Motores de proxy — sing-box (GPL-3.0), xray-core (MPL-2.0) y mihomo (GPL-3.0), cada uno redistribuido bajo su licencia upstream.
